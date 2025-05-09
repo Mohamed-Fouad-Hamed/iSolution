@@ -1,0 +1,94 @@
+
+
+<!-- src/app/core/layout/header/header.component.html -->
+<mat-toolbar color="primary" class="main-toolbar">
+
+  <!-- Menu Button (visible on small screens) -->
+  <button *ngIf="isHandset$ | async"
+          mat-icon-button
+          (click)="onToggleSidenav()"
+          [attr.aria-label]="'MENU' | translate">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Application Title -->
+  <span>{{ 'APP_TITLE' | translate }}</span>
+
+  <span class="toolbar-spacer"></span>
+
+  <!-- Language Selector (remains the same) -->
+  <button mat-button [matMenuTriggerFor]="langMenu" aria-label="Select language">
+    <mat-icon>language</mat-icon>
+    <span class="lang-name">{{ currentLang().name }}</span>
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #langMenu="matMenu">
+    <button *ngFor="let lang of availableLangs" mat-menu-item (click)="onChangeLanguage(lang.code)">
+      <span>{{ lang.code | translate }}</span>
+    </button>
+  </mat-menu>
+
+  <!-- Theme Toggle (remains the same) -->
+  <mat-slide-toggle
+    class="theme-toggle"
+    [checked]="themeService.isDarkMode()"
+    (change)="toggleTheme()"
+    [aria-label]="'TOGGLE_THEME' | translate">
+    <mat-icon>{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
+  </mat-slide-toggle>
+
+  <!-- ====== USER PROFILE SECTION ====== -->
+  <ng-container *ngIf="!isLoadingUser()">
+
+    <!-- Logged In State: User Avatar Button + Menu -->
+    <ng-container *ngIf="currentUser(); else loggedOutState">
+      <button class="user-avatar-button"
+              mat-icon-button
+              [matMenuTriggerFor]="userMenu"
+              [matTooltip]="currentUser()?.firstName + ' ' + currentUser()?.lastName"
+              [matTooltipPosition]="'below'"
+              aria-label="User menu">
+        <!-- Display Avatar Image if available -->
+        <img *ngIf="userAvatarUrl()"
+             class="user-avatar-image"
+             [src]="userAvatarUrl()"
+             (error)="handleAvatarError($event)"
+             alt="User Avatar"/>
+        <!-- Fallback Icon if no avatar -->
+        <mat-icon *ngIf="!userAvatarUrl()">account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item [routerLink]="['/user-profile', currentUser()?.login]"> <!-- Adjust route as needed -->
+          <mat-icon>person</mat-icon>
+          <span>{{ 'header.menuProfile' | translate }}</span>
+        </button>
+        <button mat-menu-item routerLink="/settings"> <!-- Example link -->
+           <mat-icon>settings</mat-icon>
+           <span>{{ 'header.menuSettings' | translate }}</span>
+         </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon color="warn">logout</mat-icon>
+          <span>{{ 'header.menuLogout' | translate }}</span>
+        </button>
+      </mat-menu>
+    </ng-container>
+
+    <!-- Logged Out State: Login Button -->
+    <ng-template #loggedOutState>
+      <a mat-stroked-button routerLink="/login" class="login-button">
+        <mat-icon>login</mat-icon>
+        <span>{{ 'header.login' | translate }}</span>
+      </a>
+    </ng-template>
+
+  </ng-container>
+
+  <!-- Loading State: Show Spinner -->
+  <div *ngIf="isLoadingUser()" class="user-loading-spinner">
+      <mat-spinner diameter="24"></mat-spinner>
+  </div>
+  <!-- ====== END USER PROFILE SECTION ====== -->
+
+</mat-toolbar>

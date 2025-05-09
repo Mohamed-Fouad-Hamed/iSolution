@@ -1,0 +1,345 @@
+{
+    "APP_TITLE": "iSolution App",
+    "TOGGLE_THEME": "Toggle dark mode",
+    "MENU": "Menu",
+    "HOME": "Home",
+    "SETTINGS": "Settings",
+    "LANGUAGE": "Language",
+    "ENGLISH": "English",
+    "ARABIC": "Arabic",
+    "en": "English",
+    "ar": "Arabic",
+	"logout":"Logout",
+
+   "_comment_Login_Component":"",
+
+   "login_title":"Login",
+   "login_subtitle":"Enter your credentials",
+   "login_name":"Email or Phone Number",
+   "login_name_placeholder":"e.g., user@example.com or 01234567899",
+   "login_name_required":"Username is required.",
+   "login_name_valid":"Please enter a valid email or phone number.",
+   "input_password":"Password",
+   "password_required":"Password is required.",
+   "remember_me":"Remember me",
+   "forget_password":"Forget Password",
+   "Login_submit":"Login",
+   "login_has_account":"Don't have an account?",
+   "signup_link":"Create new account.",
+
+   "_comment_Register_Component":"",
+
+    "register.registeraccount":" Account Registration ",
+    "register.accounttype":"Account type",
+	"register.accountname":"Account name",
+	"register.enteraccountname":"Enter an account name",
+	"register.accountnamereq":"Account name is required",
+	"register.login":"Login Name",
+	"register.placeholderlogin":"Enter an email address or phone number",
+	"register.loginreq":"Login name is required",
+	"register.loginreqpattern":"Invalid email address or mobil number ",
+	"register.loginduplicate":"Login name already exists",
+	"register.phone":"Phone number",
+	"register.placeholderphone":"Enter phone number",
+	"register.phonereq":"Phnoe number required",
+	"register.phonereqpattern":"Phone number invalid",
+	"register.firstname":"First name",
+	"register.enterfirstname":" Enter your first name ",
+	"register.firstnamereq":"First name is required ",
+	"register.lastname":"Last name ",
+	"register.enterlastname":" Enter your last name ",
+	"register.lastnamereq":" Last name is required ",
+	"register.email":" Email address ",
+	"register.enteremail":"Enter an email address",
+	"register.emailpattern":" Invalid email address",
+	"register.languagereq":"Must be select language",
+	"register.selectlanguage":" Select language",
+	"register.enterpassword":" Enter a password ",
+	"register.password":"Password",
+	"register.passwordreq":" Password is required ",
+	"register.min_limit_req":"Minimum limit of request",
+	"register.min_limit_count":"Minimum limit of count products",
+	"register.delivery_period":"Delivery period",
+	"register.weekend":"Weekend",
+	"register.work_hours":"Work hours",
+	"register.currency":"Currency",
+	"register.toastsave":"Account has been updated successfully",
+    "register.reset":"Reset",
+	"common": {
+    "close": "Close"
+    },
+	"header": {
+	  "menuProfile": "Profile",
+	  "menuSettings": "Settings",
+	  "menuLogout": "Logout",
+	  "login": "Login"
+	},
+	"verifyOtp": {
+		"title": "Verify Your Account",
+		"subtitle": "Enter the {{length}}-digit code sent to {{identifier}}.",
+		"otpLabel": "Verification Code",
+		"otpPlaceholder": "Enter {{length}}-digit code",
+		"validationRequired": "Verification code is required.",
+		"validationLength": "Code must be exactly {{length}} digits.",
+		"submitAction": "Verify Code",
+		"resendAction": "Resend Code",
+		"resendCooldown": "Resend Code ({{seconds}}s)",
+		"didNotReceive": "Didn't receive the code?",
+		"successMessage": "Account verified successfully! Redirecting...",
+		"resendSuccess": "A new verification code has been sent.",
+		"errorInvalidOrExpired": "Invalid or expired code. Please try again or resend.",
+		"errorResendFailed": "Failed to resend code. Please try again later.",
+		"errorIdentifierMissing": "Cannot verify account: User identifier is missing.",
+		"errorUnknown": "An unexpected error occurred. Please try again."
+	  },
+	  "forgotPassword": {
+		"title": "Forgot Password?",
+		"subtitle": "Enter your email address below and we'll send you a link to reset your password.",
+		"emailLabel": "Email Address Or Phone Number",
+		"emailPlaceholder": "Enter your registered email or phone number",
+		"validationRequired": "Email address or phone number is required.",
+		"validationEmail": "Please enter a valid email address or phone number.",
+		"submitAction": "Send Reset Link",
+		"backToLogin": "Back to Login",
+		"successMessageGeneric": "If an account with that email or phone number exists, a password reset link has been sent.",
+		"errorGeneric": "Could not process request. Please try again later.",
+		"errorApiSpecificPlaceholder": "An error occurred: {{message}}" 
+	  },
+	  "resetPassword": {
+		  "title": "Reset Your Password",
+		  "subtitle": "Enter and confirm your new password below.",
+		  "passwordLabel": "New Password",
+		  "passwordPlaceholder": "Enter new password",
+		  "confirmPasswordLabel": "Confirm New Password",
+		  "confirmPasswordPlaceholder": "Re-enter new password",
+		  "validationRequired": "{{field}} is required.",
+		  "validationMinLength": "Password must be at least {{min}} characters long.",
+		  "validationMismatch": "Passwords do not match.",
+		  "submitAction": "Set New Password",
+		  "successMessage": "Your password has been successfully reset. Redirecting to login...",
+		  "errorGeneric": "Could not reset password. Please try again later.",
+		  "errorTokenMissing": "Password reset token is missing or invalid.",
+		  "errorTokenMissingInstructions": "The link you used is invalid or has expired. Please request a new password reset link.",
+		  "errorTokenInvalid": "This password reset link is invalid or has expired. Please request a new one."
+	  } 
+	  ,
+	"userProfile": {
+		"backgroundImageAlt": "User profile background image",
+		"avatarAlt": "Avatar for {{name}}",
+		"changeBackgroundAriaLabel": "Change background image",
+		"changeAvatarAriaLabel": "Change profile picture",
+		"emailLabel": "Email",
+		"languageLabel": "Language",
+		"accountLabel": "Account",
+		"errorLoading": "Failed to load user profile. Please try again.",
+		"errorMissingId": "User identifier is missing. Cannot load profile.",
+		"successAvatarUpload": "Profile picture updated successfully.",
+		"successImageUpload": "Background image updated successfully.",
+		"errorAvatarUpload": "Failed to update profile picture. Please try again.",
+		"errorImageUpload": "Failed to update background image. Please try again."
+	},
+	  "selectImage": {
+		"title": "Select Image",
+		"previewAlt": "Selected image preview",
+		"placeholder": "Select an image using the buttons below",
+		"cameraAriaLabel": "Take photo with camera",
+		"galleryAriaLabel": "Select photo from gallery",
+		"deleteAriaLabel": "Remove selected image",
+		"cancelButton": "Cancel",
+		"confirmButton": "Confirm",
+		"errorLoading": "Failed to load image. Please try again.",
+		"errorProcessing": "Failed to process image. Please try again.",
+		"errorNoImageSelected": "Please select an image first.",
+		"captureAriaLabel": "Capture photo",
+		"stopCameraAriaLabel": "Close camera",
+		"errorCameraNotSupported": "Camera access is not supported by your browser.",
+		"errorCameraGeneric": "Could not access camera. Please try again.",
+		"errorCameraPermission": "Camera permission was denied. Please enable it in your browser settings.",
+		"errorCameraNotFound": "No camera found on this device."
+	  },
+	   "COMMON": {
+		"ACTIONS": "Actions",
+		"NAME": "Name",
+		"EMAIL": "Email",
+		"PHONE": "Phone",
+		"ADDRESS": "Address",
+		"WEBSITE": "Website",
+		"LOADING": "Loading...",
+		"SAVING": "Saving...",
+		"REQUIRED_FIELD": "{{fieldName}} is required.",
+		"INVALID_EMAIL": "Please enter a valid email address.",
+		"SEARCH": "Search",
+		"BUTTONS": {
+		  "CREATE": "Create",
+		  "UPDATE": "Update",
+		  "DELETE": "Delete",
+		  "CANCEL": "Cancel",
+		  "RETRY": "Retry",
+		  "OK": "Ok",
+		  "DISMISS": "Dismiss",
+		  "SAVE": "Save",
+		  "EDIT": "Edit",
+		  "REFRESH": "Refresh",
+		   "CLEAR_FILTER": "Clear filter",
+		   "CLEAR": "Clear"
+		},
+		"CONFIRMATION": {
+			"DELETE_TITLE": "Confirm Deletion",
+			"DELETE_MESSAGE": "Are you sure you want to delete \"{{itemName}}\"? This action cannot be undone."
+		},
+		"ERRORS": {
+		  "LOAD_FAILED": "Failed to load data.",
+		  "SAVE_FAILED": "Failed to save data.",
+		  "DELETE_FAILED": "Failed to delete data."
+		},
+		"NO_DATA_FOUND": "No items found.",
+		"NO_DATA_MATCHING_FILTER": "No items found matching filter \"{{filterValue}}\"",
+		"VIEWS": {
+			"TREE": "Tree View",
+			"TABLE": "List View"
+		},
+		"FIELD_READONLY_EDIT": "Cannot be changed after creation."
+	  },
+	  "COMPANY": {
+		"ENTITY": "Company",
+		"ENTITY_PLURAL": "Companies",
+		"TAX_ID": "Tax Identification Number",
+		"LIST": {
+		  "TITLE": "Manage Companies",
+		  "FILTER_LABEL": "Filter Companies",
+		  "FILTER_PLACEHOLDER": "Search by name, tax id, etc.",
+		  "CREATE_BUTTON": "Create Company",
+		  "EDIT_BUTTON_ARIA": "Edit company",
+		  "DELETE_BUTTON_ARIA": "Delete company",
+		  "PAGINATOR_ARIA": "Select page of companies"
+		},
+		"DIALOG": {
+		  "CREATE_TITLE": "Create New Company",
+		  "EDIT_TITLE": "Edit Company",
+		  "CREATE_INFO": "Please fill in the details for the new company.",
+		  "EDIT_INFO": "Editing company: {{companyName}}"
+		},
+		"FIELD": {
+		  "NAME": {
+			"LABEL": "Company Name"
+		  },
+		  "TAX_ID": {
+			"LABEL": "Tax Identification Number"
+		  }
+		},
+		"SUCCESS": {
+			"CREATED": "Company created successfully!",
+			"UPDATED": "Company updated successfully!",
+			"DELETED": "Company deleted successfully!"
+		},
+		"ERRORS": {
+			"LOAD_FAILED": "Failed to load companies.",
+			"SAVE_FAILED": "Failed to save company.",
+			"DELETE_FAILED": "Failed to delete company.",
+			"NOT_FOUND": "Company not found."
+		}
+	  },
+	  "DEPARTMENT": {
+		"ENTITY": "Department",
+		"ENTITY_PLURAL": "Departments",
+		"TREE": {
+		  "TITLE": "Manage Departments (Hierarchy)",
+		  "ADD_ROOT": "Add Root Department",
+		  "ADD_CHILD": "Add Child Department",
+		  "EDIT_NODE": "Edit Department",
+		  "DELETE_NODE": "Delete Department",
+		  "CONFIRM_DELETE_TITLE": "Confirm Department Deletion",
+		  "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete department \"{{departmentName}}\" ({{serialId}})? This might also affect child departments if not handled by the server.",
+		  "LOADING_TREE": "Loading department structure...",
+		  "LOAD_ERROR": "Failed to load department hierarchy.",
+		  "NO_DEPARTMENTS": "No departments found for this company.",
+		    "FILTER_LABEL": "Filter departments",
+            "FILTER_PLACEHOLDER": "Search by name or serial ID"
+		},
+		"DIALOG": {
+		  "CREATE_TITLE": "Create New Department",
+		  "CREATE_CHILD_TITLE": "Create Child Department",
+		  "EDIT_TITLE": "Edit Department",
+		  "PARENT_INFO": "Parent Department (Serial ID): {{parentSerialId}}",
+		  "SERIAL_ID_REQUIRED": "Serial ID is required.",
+		  "SERIAL_ID_EXISTS": "This Serial ID already exists.",
+		  "NAME_REQUIRED": "Department name is required."
+		},
+		"FIELD": {
+			"NAME": { "LABEL": "Department Name" },
+			"SERIAL_ID": { "LABEL": "Serial ID", "PLACEHOLDER": "Enter unique serial ID" },
+			"PARENT_SERIAL_ID": {
+				"LABEL": "Parent Department",
+				"PLACEHOLDER": "Select parent department",
+				"NONE_OPTION": "-- None (Root Department) --",
+				"NO_PARENTS_HINT": "No other departments available."
+			 },
+			"DESCRIPTION": { "LABEL": "Description", "PLACEHOLDER": "Enter optional description" }
+		},
+		"SUCCESS": {
+			"CREATED": "Department created successfully!",
+			"UPDATED": "Department updated successfully!",
+			"DELETED": "Department deleted successfully!"
+		},
+		"ERRORS": { 
+			"LOAD_FAILED": "Failed to load departments.",
+			"SAVE_FAILED": "Failed to save department.",
+			"DELETE_FAILED": "Failed to delete department.",
+			"NOT_FOUND": "Department not found.",
+			"CONFLICT": "Conflict occurred. Serial ID may exist or deletion is restricted."
+		}
+	  },
+	  "FIN_ACCOUNT": {
+		"ENTITY": "Financial Account",
+		"ENTITY_PLURAL": "Financial Accounts",
+		"MANAGER": {
+			"TITLE": "Manage Financial Accounts",
+			"ADD_ROOT_BUTTON": "Add Root Account",
+			 "SEARCH_PLACEHOLDER": "Search by name, serial, type..."
+		},
+		"TREE": {
+			"ADD_CHILD_TOOLTIP": "Add Child Account"
+		},
+		 "DIALOG": {
+		  "CREATE_TITLE": "Create New Financial Account",
+		  "EDIT_TITLE": "Edit Financial Account"
+		},
+		"FIELD": {
+			"SERIAL_ID": { "LABEL": "Account Code / Serial" },
+			"PARENT_SERIAL_ID": {
+				"LABEL": "Parent Account",
+				"NONE_OPTION": "-- None (Root Account) --",
+				"NO_PARENTS_HINT": "No other accounts available to select as parent."
+			 },
+			 "ACCOUNT_TYPE": { "LABEL": "Account Type" },
+			 "ACCOUNT_CATEGORY": { "LABEL": "Category" },
+			 "BALANCE": { "LABEL": "Balance" },
+			 "CURRENCY": {
+				"LABEL": "Currency",
+				"HINT": "e.g., EGP, USD",
+				"LENGTH_ERROR": "Must be 3 characters."
+			  },
+			 "DESCRIPTION": { "LABEL": "Description" },
+			 "IS_ACTIVE": { "LABEL": "Active" },
+			 "IS_DEBIT": { "LABEL": "Debit Nature" },
+			 "IS_CASH": { "LABEL": "Cash Account" },
+			 "IS_BANK": { "LABEL": "Bank Account" },
+			 "IS_CONTROL": { "LABEL": "Control Account" }
+		},
+		"SUCCESS": {
+			"CREATED": "Financial Account created successfully!",
+			"UPDATED": "Financial Account updated successfully!",
+			"DELETED": "Financial Account deleted successfully!"
+		},
+		"ERRORS": {
+			"LOAD_FAILED": "Failed to load financial accounts.",
+			"LOAD_TYPES_FAILED": "Failed to load account types.",
+			"SAVE_FAILED": "Failed to save financial account.",
+			"DELETE_FAILED": "Failed to delete financial account."
+		}
+	  }
+	
+
+
+
+  }

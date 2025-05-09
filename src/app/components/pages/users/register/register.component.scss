@@ -1,0 +1,102 @@
+@use '@angular/material' as mat;
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 90vh; // Adjust as needed
+  }
+  
+  // Card styling
+  .register-card {
+    width: 100%;
+    max-width: 500px; // Max width on larger screens
+  }
+  
+  // Ensure form fields take full width within the card
+  .full-width {
+    width: 100%;
+   // margin-bottom: 10px; // Add spacing between fields
+  }
+  
+  // Style the actions (buttons) area
+  mat-card-actions {
+    padding: 16px; // Add padding consistent with card content
+    display: flex;
+    justify-content: flex-end; // Align buttons to the right
+    gap: 8px; // Space between buttons
+  
+    &[align="end"] { // Specificity if needed
+      justify-content: flex-end;
+    }
+  }
+  
+  // Style the submit button's spinner position
+  mat-card-actions button[mat-raised-button] {
+    mat-progress-spinner {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 8px; // Space spinner from text
+    }
+  }
+  
+  
+  // Optional: Style for global error display within the card content
+  .global-error-display {
+    background-color: mat.get-color-from-palette(mat.$red-palette, 50); // Light red background
+    color: mat.get-color-from-palette(mat.$red-palette, 700); // Darker red text
+    padding: 10px 16px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid mat.get-color-from-palette(mat.$red-palette, 100);
+    text-align: center;
+  }
+  
+  // Optional: Styling for the error snackbar
+  ::ng-deep .error-snackbar {
+    background-color: mat.get-color-from-palette(mat.$red-palette, 600); // Material Warn color
+    color: white;
+  
+    .mdc-snackbar__action { // Style the "Close" button if needed
+       color: white !important; // Use !important carefully if needed to override defaults
+    }
+  }
+  
+  // --- Responsive Adjustments ---
+  .divider{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .mat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .mat-half {
+    flex: 1 1 calc(50% - 8px); /* 50% with some gap compensation */
+    min-width: 200px;
+  }
+
+  // Example: Less padding on smaller screens
+  @media (max-width: 600px) {
+    .register-container {
+      padding: 10px;
+      align-items: flex-start; // Align card to top on small screens
+      min-height: unset;
+    }
+  
+    .register-card {
+      margin-top: 10px; // Add some top margin if aligning to start
+    }
+  
+    mat-card-content, mat-card-actions {
+      padding: 12px; // Reduce padding inside card
+    }
+
+    .mat-half {
+      flex: 1 1 100%;
+    }
+  }

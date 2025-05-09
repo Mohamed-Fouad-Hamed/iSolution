@@ -1,0 +1,46 @@
+
+  .main-toolbar {
+    position: sticky; // Keep it sticky if desired within its container
+    top: 0;
+    z-index: 1000; // Ensure toolbar stays above content
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optional shadow
+    padding-inline-start: 16px;
+    // Material toolbar heights (update if using custom density)
+    // These are usually handled by the theme, but can be overridden
+    // min-height: 64px; // Default desktop height
+    // @media (max-width: 599.98px) { // Handset breakpoint
+    //   min-height: 56px; // Mobile height
+    // }
+  }
+  
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  // Align icons and toggle nicely
+  .lang-name {
+    margin-left: 4px;
+    margin-right: 4px;
+ }
+  
+  .theme-icon {
+    vertical-align: middle;
+    margin: 0 4px;
+  }
+  
+  .theme-toggle {
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+  
+  // Adjust button icon padding if needed
+  button[mat-icon-button] {
+    margin-inline-end: 8px; // Use logical property for LTR/RTL
+  }
+  
+  // Specificity for toolbar items alignment if default isn't quite right
+  mat-toolbar {
+    button, mat-icon, mat-slide-toggle {
+      vertical-align: middle;
+    }
+  }

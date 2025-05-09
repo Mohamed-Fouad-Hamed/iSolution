@@ -1,0 +1,58 @@
+@use '@angular/material' as mat;
+
+// Make dialog content scrollable if needed, not the whole dialog
+.dialog-content {
+    max-height: 70vh; // Adjust as needed
+    overflow-y: auto;
+    padding: 0 5px 15px 5px; // Adjust padding
+    margin: 0 0; // Overcome default dialog padding for edge-to-edge scroll
+    padding: 0 24px; // Re-apply padding inside scroll area
+}
+
+.form-row {
+    display: flex;
+    gap: 15px; // Spacing between fields in a row
+    margin-bottom: 5px; // Less space between rows
+}
+
+.form-field {
+    flex: 1; // Make fields in a row share space equally
+}
+
+.full-width-field {
+    width: 100%;
+    margin-top: 10px; // Space above full-width field
+}
+
+.flags-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px 5px;
+    margin-top: 10px;
+    border-top: 1px solid var(--mat-gray-700, #616161);
+}
+
+// Align spinner nicely
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.error-message-dialog {
+    color: var(--mat-warn-color, red);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+// Ensure actions have space above
+[mat-dialog-actions] {
+  padding-top: 15px;
+}

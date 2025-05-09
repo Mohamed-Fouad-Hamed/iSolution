@@ -1,0 +1,95 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block; // Ensures component takes up space
+}
+
+.verify-otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 80vh; // Adjust as needed
+  background-color: var(--app-background-color, #f5f5f5); // Use CSS var if possible
+}
+
+.verify-otp-card {
+  width: 100%;
+  max-width: 450px; // Adjust width as desired
+}
+
+.full-width {
+  width: 100%;
+}
+
+// Style OTP input for better visibility
+.otp-field {
+  margin-top: 1rem; // Add some space above
+
+  // Target the actual input within the Material structure
+  .mat-mdc-form-field-infix input {
+    text-align: center;
+    font-size: 1.8em; // Larger font for OTP
+    letter-spacing: 0.5em; // Space out digits visually
+    padding-left: 0.5em; // Adjust padding because of letter-spacing
+  }
+}
+
+
+mat-card-actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end; // Align actions to the right
+  gap: 8px; // Space between buttons if multiple actions
+}
+
+.inline-spinner {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+// Style for general error messages within the card
+.global-error-display {
+  background-color: mat.get-color-from-palette(mat.$red-palette, 50);
+  color: mat.get-color-from-palette(mat.$red-palette, 700);
+  padding: 10px 16px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid mat.get-color-from-palette(mat.$red-palette, 100);
+  text-align: center;
+  font-size: 0.9em;
+  word-wrap: break-word; // Prevent long error messages from overflowing
+}
+
+.error-text {
+   color: mat.get-color-from-palette(mat.$red-palette, 700);
+}
+
+
+.resend-section {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+  color: var(--app-secondary-text-color, #5f5f5f); // Use CSS var if possible
+
+  .resend-button {
+    padding: 0 4px; // Reduce padding for inline look
+    min-width: auto; // Allow button to shrink
+    margin-left: 5px; // Space between text and button
+    vertical-align: baseline; // Align with surrounding text
+
+    // Adjust spinner position within the resend button
+    .inline-spinner {
+       margin-left: 5px;
+       margin-right: -4px; // Counteract button padding if needed
+    }
+  }
+}
+
+// Optional: Define Snackbar panel classes globally or in styles.scss
+/* In styles.scss or global stylesheet */
+// .success-snackbar { background-color: #4CAF50; color: white; }
+// .error-snackbar { background-color: #F44336; color: white; }
+// .info-snackbar { background-color: #2196F3; color: white; }

@@ -1,0 +1,106 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+.header {
+  flex: 0 0 auto; /* Don't grow, don't shrink */
+}
+
+
+.sidenav-container {
+  flex: 1 1 auto; /* Take the remaining space */
+  overflow: auto; /* Enable scroll if needed */
+  padding: 5px;
+}
+
+.sidenav {
+  width: 240px;
+ // border-right: none; // Optional
+
+  .sidenav-toolbar { // Target toolbar inside sidenav specifically
+    // This toolbar is simpler, might not need specific background overrides
+    // background: inherit; // Keep if needed
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1); // Optional separator shadow
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+
+  // --- USER PROFILE SECTION STYLES ---
+  .user-profile-section {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+   // background-color: rgba(26, 25, 25, 0.06);; // Subtle background
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.06); // Subtle hover
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover; // Ensure image covers the area nicely
+      margin-right: 16px;
+      background-color: rgba(0, 0, 0, 0.1); // Placeholder bg color
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .default-avatar { // Style if using mat-icon fallback
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+       // color: mat.get-color-from-palette($foreground, 'secondary-text');
+    }
+
+    .user-name {
+      padding-inline-start: 10px;
+      font-weight: 500;
+     // color: mat.get-color-from-palette($foreground, 'default-contrast');
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; // Prevent long names from breaking layout
+    }
+  }
+
+
+
+// Loading Overlay (keep existing)
+.loading-overlay {
+  position: fixed;
+  margin: 10px;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; // Ensure it's above other content
+}
+
+// --- Responsive Adjustments ---
+@media (max-width: 599.98px) { // Handset breakpoint
+  .sidenav-container {
+    height: calc(100vh - 56px);
+  }
+}
+
+.content-wrapper {
+  padding-inline-start: 5px;
+  padding-inline-end: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

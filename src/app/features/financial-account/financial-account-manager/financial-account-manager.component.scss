@@ -1,0 +1,161 @@
+@use '@angular/material' as mat;
+// Assuming your global styles.scss (with theme and app-elevation function) is implicitly available or imported
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--app-background-color); // Use CSS variable
+  color: var(--app-text-color); // Ensure host text color is set
+  padding: clamp(5px, 1vw, 10px); // Responsive padding
+}
+
+.manager-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.manager-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--app-border-color); // Use CSS variable
+  flex-shrink: 0;
+
+  h1 {
+    margin: 0;
+    font-size: 1.4em;
+    margin-inline-end: auto;
+    color: var(--app-text-color); // Explicitly set if needed, Material usually handles headers
+  }
+
+  .search-field {
+    min-width: 200px;
+    max-width: 350px;
+    margin-inline-end: 15px;
+
+    // Material's theme should handle form field colors.
+    // Overrides for outline thickness might need dark mode specific color if not themed well.
+    // For example:
+    // body.dark-theme & {
+    //   .mat-form-field-outline {
+    //     .mat-form-field-outline-start,
+    //     .mat-form-field-outline-end,
+    //     .mat-form-field-outline-gap {
+    //        border-color: var(--app-secondary-text-color) !important; // Example
+    //     }
+    //   }
+    // }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    .mat-form-field-infix {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    .mat-form-field-outline {
+      .mat-form-field-outline-start,
+      .mat-form-field-outline-end,
+      .mat-form-field-outline-gap {
+        border-width: 1px !important;
+        // Color should be handled by Material theming or the search-field override above
+      }
+    }
+  }
+
+  // mat-button-toggle-group colors are handled by Material theming.
+  // manager-actions button colors (primary, accent, warn) are handled by Material theming.
+
+  @media (max-width: 959px) {
+    h1 {
+      width: 100%;
+      margin-bottom: 10px;
+      margin-inline-end: 0;
+    }
+    .search-field {
+      order: 1;
+      flex-grow: 1;
+      max-width: none;
+      margin-inline-start: 0;
+      margin-inline-end: 0;
+    }
+    mat-button-toggle-group {
+      order: 2;
+      margin-inline-start: 0;
+    }
+    .manager-actions {
+      order: 3;
+      margin-inline-start: auto;
+    }
+  }
+  @media (max-width: 599px) {
+    .manager-actions {
+      margin-inline-start: 0;
+      width: 100%;
+      justify-content: flex-end;
+    }
+    mat-button-toggle-group {
+      width: 100%;
+      mat-button-toggle {
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+.manager-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  flex-grow: 1;
+  gap: 15px;
+  color: var(--app-text-color); // Ensure text color
+}
+
+.error-container {
+  mat-icon { // color="warn" will be handled by Material theming
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.content-area {
+  flex-grow: 1;
+  overflow: auto;
+  border-radius: 4px;
+  background-color: var(--app-surface-color);
+
+  @include mat.elevation(2); 
+
+ /* body.dark-theme & { 
+
+    $custom-dark-shadow-color: rgba(0, 0, 0, 0.6); 
+    @include mat.elevation(2, $custom-dark-shadow-color, $custom-dark-shadow-color);
+  }*/
+}
+
+.empty-message {
+  padding: 30px;
+  text-align: center;
+  color: var(--app-secondary-text-color); // Use CSS variable
+  font-style: italic;
+}

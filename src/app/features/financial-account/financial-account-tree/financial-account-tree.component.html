@@ -1,0 +1,78 @@
+<div class="tree-container">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <!-- Node Definition -->
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+        <li>
+          <div class="mat-tree-node tree-node-item" [style.padding-inline-start]="(node.level || 0) * 25 + 'px'">
+            <!-- Expand/Collapse Button -->
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            <!-- Node Content -->
+            <span class="node-content">
+                <span class="node-name">{{ node.name }}</span>
+                <span class="node-serial">({{ node.serialId }})</span>
+                <span class="node-balance">{{ node.balance | number:'1.2-2' }} {{ node.currency }}</span>
+            </span>
+
+            <!-- Action Buttons -->
+            <span class="node-actions">
+              <button mat-icon-button color="primary" (click)="emitCreateChild(node)" [title]="'FIN_ACCOUNT.TREE.ADD_CHILD_TOOLTIP' | translate">
+                <mat-icon>add_circle</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="emitEdit(node)" [title]="'COMMON.BUTTONS.EDIT' | translate">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="emitDelete(node)" [title]="'COMMON.BUTTONS.DELETE' | translate">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </span>
+          </div>
+
+          <!-- Recursive Children rendering -->
+          <ul [class.tree-invisible]="!treeControl.isExpanded(node)">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </ul>
+        </li>
+      </mat-nested-tree-node>
+
+      <!-- Leaf Node Definition (no children) -->
+      <mat-tree-node *matTreeNodeDef="let node">
+         <li>
+            <div class="mat-tree-node tree-node-item leaf-node" [style.padding-inline-start]="(node.level || 0) * 25 + 'px'">
+                 <!-- Indentation spacer + Icon -->
+                <button mat-icon-button disabled class="tree-node-icon-spacer">
+                    <mat-icon>{{ node.isBankAccount ? 'account_balance' : (node.isCashAccount ? 'local_atm' : 'account_balance_wallet') }}</mat-icon>
+                </button>
+                <!-- Node Content -->
+                <span class="node-content">
+                    <span class="node-name">{{ node.name }}</span>
+                    <span class="node-serial">({{ node.serialId }})</span>
+                    <span class="node-balance">{{ node.balance | number:'1.2-2' }} {{ node.currency }}</span>
+                 </span>
+
+                 <!-- Action Buttons -->
+                <span class="node-actions">
+                    <button mat-icon-button color="primary" (click)="emitCreateChild(node)" [title]="'FIN_ACCOUNT.TREE.ADD_CHILD_TOOLTIP' | translate">
+                        <mat-icon>add_circle</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="emitEdit(node)" [title]="'COMMON.BUTTONS.EDIT' | translate">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="emitDelete(node)" [title]="'COMMON.BUTTONS.DELETE' | translate">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </span>
+            </div>
+        </li>
+      </mat-tree-node>
+
+        <!-- Message when tree is empty -->
+         <div *ngIf="!dataSource.data || dataSource.data.length === 0" class="empty-message">
+            {{ 'COMMON.NO_DATA_FOUND' | translate }}
+        </div>
+
+    </mat-tree>
+</div>

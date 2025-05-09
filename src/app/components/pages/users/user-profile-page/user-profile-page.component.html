@@ -1,0 +1,80 @@
+<div class="profile-page-container">
+
+    <!-- Loading Indicator for User Profile -->
+    <div *ngIf="isLoadingUser" class="loading-shade">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  
+    <!-- Profile Content (only show when user data might be available) -->
+    <div *ngIf="!isLoadingUser">
+  
+      <!-- Header Section -->
+      <div class="profile-header">
+        <!-- Background Image Area -->
+        <div class="background-image-container">
+          <img
+            class="background-image"
+            [src]="imageUrl || fallbackImage"
+            (error)="handleImageError($event, 'image')"
+            alt="{{ 'userProfile.backgroundImageAlt' | translate }}" />
+          <!-- Background Image Upload Button -->
+          <button mat-mini-fab
+                  color="accent"
+                  class="upload-fab background-fab"
+                  (click)="openImageUploadDialog('image')"
+                  [disabled]="isUploadingImage">
+            <mat-spinner *ngIf="isUploadingImage" diameter="20" class="fab-spinner"></mat-spinner>
+            <mat-icon *ngIf="!isUploadingImage">photo_camera</mat-icon>
+          </button>
+        </div>
+  
+        <!-- Avatar Area -->
+        <div class="avatar-container">
+          <img
+            class="avatar-image mat-elevation-z6"
+            [src]="avatarUrl || fallbackAvatar"
+            (error)="handleImageError($event, 'avatar')"
+            alt="{{ 'userProfile.avatarAlt' | translate: {name: (currentUser?.firstName + ' ' + currentUser?.lastName)} }}" />
+          <!-- Avatar Upload Button -->
+          <button mat-mini-fab
+                  color="accent"
+                  class="upload-fab avatar-fab"
+                  (click)="openImageUploadDialog('avatar')"
+                  [disabled]="isUploadingAvatar">
+             <mat-spinner *ngIf="isUploadingAvatar" diameter="20" class="fab-spinner"></mat-spinner>
+             <mat-icon *ngIf="!isUploadingAvatar">photo_camera</mat-icon>
+          </button>
+        </div>
+      </div>
+  
+      <!-- User Details Section -->
+      <div class="user-details-container" *ngIf="currentUser; else noUser">
+         <h2 class="user-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</h2>
+         <!-- Using MatList for cleaner display -->
+         <mat-list role="list">
+            <mat-list-item role="listitem">
+              <mat-icon matListItemIcon>email</mat-icon>
+              <div matListItemTitle>{{ 'userProfile.emailLabel' | translate }}</div>
+              <div matListItemLine>{{ currentUser.email || 'N/A' }}</div>
+            </mat-list-item>
+             <mat-list-item role="listitem">
+               <mat-icon matListItemIcon>language</mat-icon> <!-- Choose appropriate icon -->
+               <div matListItemTitle>{{ 'userProfile.languageLabel' | translate }}</div>
+               <div matListItemLine>{{ currentUser.s_cut || 'N/A' }}</div>
+             </mat-list-item>
+             <mat-list-item role="listitem" *ngIf="currentUser.account_name">
+               <mat-icon matListItemIcon>business</mat-icon> <!-- Choose appropriate icon -->
+               <div matListItemTitle>{{ 'userProfile.accountLabel' | translate }}</div>
+               <div matListItemLine>{{ currentUser.account_name }} ({{ currentUser.account_type }})</div>
+             </mat-list-item>
+         </mat-list>
+      </div>
+       <ng-template #noUser>
+          <div class="user-details-container error-message">
+             {{ 'userProfile.errorLoading' | translate }}
+          </div>
+       </ng-template>
+  
+    </div> <!-- End of !isLoadingUser -->
+  
+  </div>

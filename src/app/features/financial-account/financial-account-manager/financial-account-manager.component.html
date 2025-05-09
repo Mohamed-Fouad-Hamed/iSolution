@@ -1,0 +1,103 @@
+<div class="manager-container" *ngIf="viewData$ | async as viewData">
+  <div class="manager-header">
+    <h1>{{ 'FIN_ACCOUNT.MANAGER.TITLE' | translate }}</h1>
+
+
+
+    <!-- View Switcher -->
+    <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="View Mode">
+      <mat-button-toggle value="tree">
+        <mat-icon>account_tree</mat-icon> {{ 'COMMON.VIEWS.TREE' | translate }}
+      </mat-button-toggle>
+      <mat-button-toggle value="table">
+        <mat-icon>list</mat-icon> {{ 'COMMON.VIEWS.TABLE' | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- Actions -->
+    <div class="manager-actions" >
+      <button mat-icon-button color="primary"
+              (click)="openCreateRootDialog(viewData.accountTypes, viewData.originalFlatNodes)"
+              [disabled]="viewData.isLoading || viewData.error"
+              [title]="'FIN_ACCOUNT.MANAGER.ADD_ROOT_BUTTON' | translate">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+       <button mat-icon-button (click)="refreshData()"
+               [title]="'COMMON.BUTTONS.REFRESH' | translate"
+               [disabled]="viewData.isLoading">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search Input -->
+  <mat-form-field class="search-field" appearance="outline" floatLabel="always">
+    <mat-label>{{ 'COMMON.SEARCH' | translate }}</mat-label>
+    <input matInput
+            [formControl]="searchControl"
+            placeholder="{{ 'FIN_ACCOUNT.MANAGER.SEARCH_PLACEHOLDER' | translate }}">
+    <button *ngIf="searchControl.value"
+            matSuffix mat-icon-button
+            aria-label="Clear search"
+            [title]="'COMMON.BUTTONS.CLEAR' | translate"
+            (click)="searchControl.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="viewData.isLoading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
+    <p>{{ 'COMMON.LOADING' | translate }}...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="!viewData.isLoading && viewData.error" class="error-container">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <span>{{ viewData.error }}</span>
+    <button mat-stroked-button color="warn" (click)="refreshData()">
+      {{ 'COMMON.BUTTONS.RETRY' | translate }}
+    </button>
+  </div>
+
+  <!-- Content Area -->
+  <div class="content-area" *ngIf="!viewData.isLoading && !viewData.error">
+    <ng-container [ngSwitch]="viewMode">
+      <!-- Tree View -->
+      <app-financial-account-tree *ngSwitchCase="'tree'"
+          [treeData]="viewData.treeData"
+          [accountId]="viewData.accountId"
+          [accountTypes]="viewData.accountTypes"
+          [flatNodes]="viewData.originalFlatNodes" 
+          (requestOpenDialog)="handleOpenDialog({
+            mode: $event.mode,
+            node: $event.node,
+            parentNode: $event.parentNode,
+            accountTypes: viewData.accountTypes,
+            flatNodes: viewData.originalFlatNodes })"
+          (requestDelete)="handleDeleteRequest($event)">
+      </app-financial-account-tree>
+
+      <!-- Table View -->
+       <app-financial-account-list *ngSwitchCase="'table'"
+          [flatNodeData]="viewData.flatNodeData" 
+          [accountId]="viewData.accountId"
+          [accountTypes]="viewData.accountTypes"
+          [flatNodes]="viewData.originalFlatNodes" 
+          (requestOpenDialog)="handleOpenDialog({
+            mode: $event.mode,
+            node: $event.node,
+            accountTypes: viewData.accountTypes,
+            flatNodes: viewData.originalFlatNodes })"
+          (requestDelete)="handleDeleteRequest($event)">
+      </app-financial-account-list>
+    </ng-container>
+     <!-- Message when search yields no results but data exists -->
+     <div *ngIf="viewData.searchTerm && viewData.originalFlatNodes.length > 0 && viewData.flatNodeData.length === 0 && viewMode === 'table'" class="empty-message">
+        {{ 'COMMON.NO_RESULTS_FOUND_FOR' | translate: { term: viewData.searchTerm } }}
+     </div>
+     <div *ngIf="viewData.searchTerm && viewData.originalFlatNodes.length > 0 && viewData.treeData.length === 0 && viewMode === 'tree'" class="empty-message">
+        {{ 'COMMON.NO_RESULTS_FOUND_FOR' | translate: { term: viewData.searchTerm } }}
+     </div>
+  </div>
+</div>

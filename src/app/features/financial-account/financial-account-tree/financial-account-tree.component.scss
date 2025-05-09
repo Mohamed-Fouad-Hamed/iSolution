@@ -1,0 +1,108 @@
+@use '@angular/material' as mat;
+
+
+:host {
+  display: block;
+  // Host background will be inherited or transparent.
+  // If it needs a specific background from the content area, use var(--app-surface-color)
+  // color: var(--app-text-color); // If host itself has text
+}
+
+.tree-container {
+  padding: 10px;
+}
+
+.mat-tree {
+  background: transparent; // Good, keeps it flexible
+}
+
+.mat-tree-node,
+.mat-nested-tree-node {
+  list-style-type: none;
+}
+
+.tree-node-item {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-bottom: 1px solid var(--app-border-color); // Use CSS variable
+  color: var(--app-text-color); // Default text color for items
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--app-hover-background-color); // Use CSS variable
+    .node-actions {
+      opacity: 1;
+    }
+  }
+}
+
+.leaf-node .tree-node-icon-spacer {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  mat-icon {
+    color: var(--app-icon-color-subtle); // Use CSS variable
+  }
+}
+
+.node-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+}
+
+.node-name {
+  font-weight: 500;
+  // color: var(--app-text-color); // Inherited
+}
+
+.node-serial {
+  font-size: 0.85em;
+  color: var(--app-secondary-text-color); // Use CSS variable
+}
+
+.node-balance {
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--app-text-color); // Or var(--app-secondary-text-color) if it should be less prominent
+  margin-inline-start: 8px;
+}
+
+.node-actions {
+  margin-inline-start: auto;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  button { // mat-icon-button colors (primary, accent, warn) handled by Material theming
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+}
+
+.tree-invisible {
+  display: none;
+}
+
+.empty-message {
+  padding: 30px;
+  text-align: center;
+  color: var(--app-secondary-text-color); // Use CSS variable
+  font-style: italic;
+}
+
+// RTL mirroring for expand/collapse icon
+// Material icons should handle their own color via theme
+.mat-icon-rtl-mirror {
+  [dir='rtl'] & {
+    transform: scaleX(-1);
+  }
+}

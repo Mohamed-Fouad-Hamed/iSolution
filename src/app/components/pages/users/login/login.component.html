@@ -1,0 +1,73 @@
+<div class="login-container">
+  <main class="main">
+    <div class="content">
+    
+      <div class="left-side">
+
+        <h2>{{ 'login_title' | translate }}</h2>
+
+        <p>{{ 'login_subtitle' | translate }}</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+ 
+          <mat-form-field appearance="outline" class="full-width-field">
+            <mat-label>{{ 'login_name' | translate }}</mat-label>
+            <input matInput formControlName="login" required placeholder="{{ 'login_name_placeholder' | translate }}">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="username?.hasError('required')">
+              {{ 'login_name_required' | translate }}
+            </mat-error>
+            <mat-error *ngIf="username?.hasError('pattern') && !username?.hasError('required')">
+              {{ 'login_name_valid' | translate }}
+            </mat-error>
+          </mat-form-field>
+  
+   
+          <mat-form-field appearance="outline" class="full-width-field">
+            <mat-label>  {{ 'input_password' | translate }} </mat-label>
+            <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="password" required>
+            <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility($event)" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="!hidePassword()">
+                <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password?.hasError('required')">
+              {{ 'password_required' | translate }}
+            </mat-error>
+          </mat-form-field>
+  
+          <div class="extra-options">
+             <mat-checkbox class="pill" formControlName="rememberMe" labelPosition="after">
+               {{'remember_me' | translate}}
+             </mat-checkbox>
+            
+              <a class="pill pill-danger" routerLink="/forgot-password" >{{ 'forget_password' | translate }}</a>
+          </div>
+  
+  
+     
+          <div *ngIf="errorMessage()" class="error-message">
+            <mat-icon color="warn" aria-hidden="true">warning</mat-icon>
+            <span>{{ errorMessage() }}</span>
+          </div>
+  
+        
+          <div class="login-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading()" class="login-button">
+              <span *ngIf="!isLoading()"> {{ 'Login_submit' | translate }}</span>
+              <mat-progress-spinner *ngIf="isLoading()" mode="indeterminate" diameter="24"></mat-progress-spinner>
+            </button>
+          </div>
+  
+        </form>
+
+      </div>
+      <div class="divider" role="separator" aria-label="Divider"></div>
+      <div class="right-side">
+        <div class="pill-group">
+          <span>{{ 'login_has_account' | translate }}</span>
+          <a routerLink="/register" class="pill pill-primary">{{ 'signup_link' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

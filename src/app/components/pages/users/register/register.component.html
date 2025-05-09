@@ -1,0 +1,193 @@
+<div class="register-container">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title>{{ 'register.registeraccount' | translate }}</mat-card-title>
+        <!-- Optional: Add subtitle if needed -->
+        <!-- <mat-card-subtitle>Enter your details</mat-card-subtitle> -->
+      </mat-card-header>
+      <mat-divider class="divider"></mat-divider>
+      <mat-card-content>
+        <form id="registerFormId" #registerForm="ngForm" (ngSubmit)="onSubmit()" novalidate >
+  
+          <!-- Optional: Global Error Display -->
+          <div *ngIf="error" class="global-error-display" role="alert">
+            <!-- Use MatSnackBar for less intrusive errors, or display here -->
+            <span>{{ error }}</span>
+            <!-- Or use a Material Chip: <mat-chip-list><mat-chip color="warn" selected>{{ error }}</mat-chip></mat-chip-list> -->
+          </div>
+
+          <div class="mat-row">
+              <!-- First Name -->
+              <mat-form-field appearance="outline" class="mat-half">
+                <mat-label>{{ 'register.firstname' | translate }}</mat-label>
+                <input matInput
+                      placeholder="{{'register.enterfirstname' | translate}}"
+                      [(ngModel)]="signUp.firstName"
+                      #firstName="ngModel"
+                      name="firstName"
+                      required
+                      maxlength="50" 
+                      autocomplete="off">
+                <mat-hint align="end">{{ firstName.value?.length || 0 }} / 50</mat-hint>
+                <mat-error *ngIf="firstName.errors?.['required']">
+                  {{ 'register.firstnamereq' | translate }}
+                </mat-error>
+              </mat-form-field>
+      
+              <!-- Last Name -->
+              <mat-form-field appearance="outline" class="mat-half">
+                <mat-label>{{ 'register.lastname' | translate }}</mat-label>
+                <input matInput
+                        placeholder="{{'register.enterlastname' | translate}}"
+                        [(ngModel)]="signUp.lastName"
+                        #lastName="ngModel"
+                        name="lastName"
+                        required
+                        maxlength="50" 
+                        autocomplete="off">
+                  <mat-hint align="end">{{ lastName.value?.length || 0 }} / 50</mat-hint>
+                  <mat-error *ngIf="lastName.errors?.['required']">
+                    {{ 'register.lastnamereq' | translate }}
+                  </mat-error>
+              </mat-form-field>
+          </div>
+  
+          <!-- Login -->
+          
+  
+
+          <div class="mat-row">
+         
+              <!-- Phone -->
+              <mat-form-field appearance="outline" class="mat-half">
+                <mat-label>{{ 'register.phone' | translate }}</mat-label>
+                <input matInput
+                      placeholder="{{'register.placeholderphone' | translate}}"
+                      [(ngModel)]="signUp.phone"
+                      #phone="ngModel"
+                      name="phone"
+                      required
+                      maxlength="30"
+                      pattern="\d+$" 
+                      autocomplete="off"> <!-- Standard pattern validator -->
+                      <!-- Removed appRegexPattern directive assuming standard pattern is sufficient -->
+                <mat-hint align="end">{{ phone.value?.length || 0 }} / 30</mat-hint>
+                <mat-error *ngIf="phone.errors?.['required']">
+                  {{ 'register.phonereq' | translate }} <!-- Use specific key if available -->
+                </mat-error>
+                <mat-error *ngIf="phone.errors?.['pattern']">
+                  {{ 'register.phonereqpattern' | translate }}
+                </mat-error>
+                <!-- Note: Original code checked login!.errors for phone pattern, corrected to phone!.errors -->
+              </mat-form-field>
+        
+      
+              <!-- Email -->
+              <mat-form-field appearance="outline" class="mat-half">
+                <mat-label>{{ 'register.email' | translate }}</mat-label>
+                <input matInput
+                      placeholder="{{'register.enteremail' | translate}}"
+                      [(ngModel)]="signUp.email"
+                      #email="ngModel"
+                      name="email"
+                      email  
+                      maxlength="50" 
+                      autocomplete="off">
+                <mat-hint align="end">{{ email.value?.length || 0 }} / 50</mat-hint>
+                <mat-error *ngIf="email.errors?.['email']">
+                  {{ 'register.emailpattern' | translate }}
+                </mat-error>
+                <!-- Note: 'required' is not present in the original Ionic code for email, kept it that way -->
+              </mat-form-field>
+
+        </div>
+
+        <div class="mat-row">
+         
+          <mat-form-field appearance="outline" class="mat-half">
+            <mat-label>{{ 'register.login' | translate }}</mat-label>
+            <input matInput
+                   placeholder="{{'register.placeholderlogin' | translate}}"
+                   [(ngModel)]="signUp.login"
+                   #login="ngModel"
+                   name="login"
+                   required
+                   maxlength="50"
+                   pattern="^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|\d+$"
+                   [ngModelOptions]="{ updateOn: 'blur' }"
+                   IsUniqueValidate 
+                   autocomplete="off" >
+            <!-- Note: IsUniqueValidate must work with Angular Material -->
+            <mat-icon *ngIf="login.pending" matSuffix color="accent"> <mat-spinner diameter="20"></mat-spinner> </mat-icon>
+            <mat-hint align="end">{{ login.value?.length || 0 }} / 50</mat-hint>
+  
+            <mat-error *ngIf="login.errors?.['required']">
+              {{ 'register.loginreq' | translate }}
+            </mat-error>
+            <mat-error *ngIf="login.errors?.['pattern'] && !login.errors?.['notUnique']">
+              {{ 'register.loginreqpattern' | translate }}
+            </mat-error>
+             <mat-error *ngIf="login.errors?.['notUnique']">
+              {{ 'register.loginduplicate' | translate }}
+            </mat-error>
+            <!-- Note: Check if IsUniqueValidate directive adds the 'notUnique' error key -->
+          </mat-form-field>
+      
+          <!-- Password -->
+          <mat-form-field appearance="outline" class="mat-half">
+            <mat-label>{{ 'register.password' | translate }}</mat-label>
+            <input matInput
+                  placeholder="{{'register.enterpassword' | translate}}"
+                  [type]="hide ? 'password' : 'text'"
+                  [(ngModel)]="signUp.password"
+                  #password="ngModel"
+                  name="password"
+                  required
+                  minlength="6"
+                  maxlength="20" 
+                  autocomplete="new-password">
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint align="end">{{ password.value?.length || 0 }} / 20</mat-hint>
+            <mat-error *ngIf="password.errors?.['required']">
+              {{ 'register.passwordreq' | translate }}
+            </mat-error>
+            <mat-error *ngIf="password.errors?.['minlength']">
+              {{ 'register.passwordminlength' | translate: { min: 6 } }} <!-- Example for minlength error -->
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+          <!-- Language -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'register.selectlanguage' | translate }}</mat-label>
+            <mat-select placeholder="{{'register.selectlanguage' | translate}}"
+                        [(ngModel)]="signUp.s_cut" 
+                        #s_cut="ngModel"
+                        name="s_cut"
+                        required>
+              <mat-option *ngFor="let lang of appLanguages" [value]="lang.key">
+                {{ lang.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="s_cut.errors?.['required']">
+               {{ 'register.languagereq' | translate }}
+            </mat-error>
+          </mat-form-field>
+        </form>
+        
+      </mat-card-content>
+      <mat-divider class="divider"></mat-divider>
+      <mat-card-actions align="end">
+       
+        <button mat-stroked-button type="button" (click)="onReset()" [disabled]="isLoading">
+          {{ 'register.reset' | translate }} <!-- Add translation key for Reset -->
+        </button>
+        <button mat-raised-button color="primary" type="submit" form="registerFormId" [disabled]="!registerForm.valid || isLoading">
+          <span *ngIf="!isLoading">{{ 'register.registeraccount' | translate }}</span>
+           <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20" style="display: inline-block;"></mat-progress-spinner>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>

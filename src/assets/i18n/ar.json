@@ -1,0 +1,344 @@
+{
+    "APP_TITLE": "الحل الأول",
+    "TOGGLE_THEME": "تبديل الوضع الداكن",
+    "MENU": "القائمة",
+    "HOME": "الرئيسية",
+    "SETTINGS": "الإعدادات",
+    "LANGUAGE": "اللغة",
+    "ENGLISH": "الإنجليزية",
+    "ARABIC": "العربية",
+     "en": "الإنجليزية",
+    "ar": "العربية",
+	"logout":"تسجيل الخروج",
+
+   "_comment_Login_Component":"",
+
+   "login_title":"تسجيل الدخول",
+   "login_subtitle":"إدخل بيانات الأعتماد",
+   "login_name":"إيميل أو رقم تليفون",
+   "login_name_placeholder":"على سبيل المثال  user@example.com أو  01234567899",
+   "login_name_required":"إسم المستخدم مطلوب",
+   "login_name_valid":"من فضلك إدخل إيميل أو رقم تليفون بشكل صحيح",
+   "input_password":"كلمة مرور",
+   "password_required":"كلمة مرور مطلوبه",
+   "remember_me":"تذكرنى",
+   "forget_password":"نسيت كلمة المرور",
+   "Login_submit":"تسجيل",
+   "login_has_account":"ليس لديك حساب ؟",
+   "signup_link":"إنشاء حساب جديد",
+
+   "_comment_Register_Component":"",
+   "register.registeraccount":"تسجيل الحساب",
+   "register.accounttype":"نوع الحساب",
+	"register.accountname":"إسم الحساب",
+	"register.enteraccountname":"إدخل إسم الحساب",
+	"register.accountnamereq":"إسم الحساب مطلوب",
+	"register.login":"إسم تسجيل الدخول",
+	"register.placeholderlogin":"يمكنك إدخال بريد إليكترونى أو رقم هاتف",
+	"register.loginreq":"إسم تسجيل الدخول مطلوب",
+	"register.loginreqpattern":"بريد اليكترونى أو رقم هاتف غير صالح ",
+	"register.phone":"رقم الهاتف",
+	"register.placeholderphone":"  رقم الهاتف",
+	"register.phonereq":" رقم الهاتف مطلوب",
+	"register.phonereqpattern":" رقم الهاتف غير صالح",
+	"register.loginduplicate":"إسم تسجيل الدخول موجود بالفعل",
+	"register.firstname":"الإسم الأول",
+	"register.enterfirstname":" إدخل الإسم الأول",
+	"register.firstnamereq":" الإسم الأول مطلوب",
+	"register.lastname":" الإسم الأخير ",
+	"register.enterlastname":" إدخل الإسم الأخير ",
+	"register.lastnamereq":" الإسم الأخير مطلوب ",
+	"register.email":" البريد الإلكترونى ",
+	"register.enteremail":"  إدخل البريد الإلكترونى ",
+	"register.emailpattern":" البريد الإلكترونى غير صحيح",
+	"register.languagereq":"يجب تحديد اللغة",
+	"register.selectlanguage":"إخنيار اللغة",
+	"register.enterpassword":" إدخل كلمة المرور",
+	"register.password":"كلمة المرور",
+	"register.passwordreq":"كلمة المرور مطلوبه",
+	"register.min_limit_req":" الحد الأدنى للطبية",
+	"register.min_limit_count":" الحد الآدنى لعدد الأصناف",
+	"register.delivery_period":" مدة التوصيل",
+	"register.weekend":"العطلة الأسبوعية",
+	"register.work_hours":"مواعيد العمل",
+	"register.currency":"العملة",
+	"register.toastsave":"تم تحديث بيانات الحساب",
+    "register.reset":"إعادة تسجيل",
+	"common": {
+      "close": "إغلاق"
+    }
+	,
+	"header": {
+		"menuProfile": "الملف الشخصى",
+		"menuSettings": "إعدادات",
+		"menuLogout": "تسجيل الخروج",
+		"login": "تسجيل الدخول"
+	},
+	"verifyOtp": {
+		"title": "التحقق من حسابك",
+		"subtitle": "أدخل الرمز المكون من {{length}} رقمًا والمُرسل إلى {{identifier}}.",
+		"otpLabel": "رمز التحقق",
+		"otpPlaceholder": "أدخل الرمز المكون من {{length}} رقمًا",
+		"validationRequired": "رمز التحقق مطلوب.",
+		"validationLength": "يجب أن يكون الكود عبارة عن {{length}} رقمًا بالضبط.",
+		"submitAction": "رمز التحقق",
+		"resendAction": "إعادة إرسال الرمز",
+		"resendCooldown": "إعادة إرسال الرمز ({{seconds}}s)",
+		"didNotReceive": "لم تستلم الرمز؟",
+		"successMessage": "تم التحقق من الحساب بنجاح! جاري إعادة التوجيه...",
+		"resendSuccess": "لقد تم إرسال رمز التحقق الجديد.",
+		"errorInvalidOrExpired": "رمز غير صالح أو منتهي الصلاحية. يُرجى المحاولة مرة أخرى أو إعادة الإرسال.",
+		"errorResendFailed": "تعذّر إعادة إرسال الرمز. يُرجى المحاولة لاحقًا.",
+		"errorIdentifierMissing": "لا يمكن التحقق من الحساب: معرف المستخدم مفقود.",
+		"errorUnknown": "حدث خطأ غير متوقع. يُرجى المحاولة مرة أخرى."
+	  },
+	  "forgotPassword": {
+		"title": "هل نسيت كلمة السر؟",
+		"subtitle": "أدخل عنوان بريدك الإلكتروني أدناه وسنرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
+		"emailLabel": "عنوان البريد الإلكتروني أو رقم الهاتف",
+		"emailPlaceholder": "أدخل بريدك الإلكتروني أو رقم هاتفك المسجل",
+		"validationRequired": "يجب إدخال عنوان البريد الإلكتروني أو رقم الهاتف.",
+		"validationEmail": "الرجاء إدخال عنوان بريد إلكتروني أو رقم هاتف صالح.",
+		"submitAction": "إرسال رابط إعادة التعيين",
+		"backToLogin": "العودة إلى تسجيل الدخول",
+		"successMessageGeneric": "إذا كان هناك حساب بهذا البريد الإلكتروني أو رقم الهاتف، فسيتم إرسال رابط إعادة تعيين كلمة المرور.",
+		"errorGeneric": "تعذّرت معالجة الطلب. يُرجى المحاولة لاحقًا.",
+		"errorApiSpecificPlaceholder": "حدث خطأ: {{message}}" 
+	  },
+		"resetPassword": {
+			"title": "إعادة تعيين كلمة المرور الخاصة بك",
+			"subtitle": "أدخل كلمة المرور الجديدة وأكدها أدناه.",
+			"passwordLabel": "كلمة المرور الجديدة",
+			"passwordPlaceholder": "أدخل كلمة المرور الجديدة",
+			"confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+			"confirmPasswordPlaceholder": "أعد إدخال كلمة المرور الجديدة",
+			"validationRequired": "{{field}} مطلوب.",
+			"validationMinLength": "يجب أن تتكون كلمة المرور من {{min}} حرفًا على الأقل.",
+			"validationMismatch": "كلمات المرور غير متطابقة.",
+			"submitAction": "تعيين كلمة مرور جديدة",
+			"successMessage": "تم إعادة تعيين كلمة مرورك بنجاح. جاري إعادة التوجيه لتسجيل الدخول...",
+			"errorGeneric": "تعذّر إعادة تعيين كلمة المرور. يُرجى المحاولة لاحقًا.",
+			"errorTokenMissing": "رمز إعادة تعيين كلمة المرور مفقود أو غير صالح.",
+			"errorTokenMissingInstructions": "الرابط الذي استخدمته غير صالح أو منتهي الصلاحية. يُرجى طلب رابط جديد لإعادة تعيين كلمة المرور.",
+			"errorTokenInvalid": "رابط إعادة تعيين كلمة المرور هذا غير صالح أو منتهي الصلاحية. يُرجى طلب رابط جديد."
+		}
+		,
+		"userProfile": {
+			"backgroundImageAlt": "صورة خلفية ملف تعريف المستخدم",
+			"avatarAlt": "الصورة الرمزية لـ {{name}}",
+			"changeBackgroundAriaLabel": "تغيير صورة الخلفية",
+			"changeAvatarAriaLabel": "تغيير صورة الملف الشخصي",
+			"emailLabel": "بريد إلكتروني",
+			"languageLabel": "لغة",
+			"accountLabel": "حساب",
+			"errorLoading": "فشل تحميل ملف تعريف المستخدم. يُرجى المحاولة مرة أخرى.",
+			"errorMissingId": "مُعرِّف المستخدم مفقود. لا يُمكن تحميل الملف الشخصي.",
+			"successAvatarUpload": "تم تحديث الصورة الشخصية بنجاح.",
+			"successImageUpload": "تم تحديث صورة الخلفية بنجاح.",
+			"errorAvatarUpload": "تعذّر تحديث صورة الملف الشخصي. يُرجى المحاولة مرة أخرى.",
+			"errorImageUpload": "تعذّر تحديث صورة الخلفية. يُرجى المحاولة مجددًا."
+		},
+		"selectImage": {
+		  "title": "حدد الصورة",
+		  "previewAlt": "معاينة الصورة المحددة",
+		  "placeholder": "حدد صورة باستخدام الأزرار أدناه",
+		  "cameraAriaLabel": "التقط صورة بالكاميرا",
+		  "galleryAriaLabel": "اختر الصورة من المعرض",
+		  "deleteAriaLabel": "إزالة الصورة المحددة",
+		  "cancelButton": "إلفاء",
+		  "confirmButton": "تأكيد",
+		  "errorLoading": "فشل تحميل الصورة. يُرجى المحاولة مرة أخرى.",
+		  "errorProcessing": "تعذّرت معالجة الصورة. يُرجى المحاولة مجددًا.",
+		  "errorNoImageSelected": "الرجاء تحديد الصورة أولاً.",
+		  "captureAriaLabel": "التقاط الصورة",
+		  "stopCameraAriaLabel": "إغلاق الكاميرا",
+		  "errorCameraNotSupported": "لا يدعم متصفحك الوصول إلى الكاميرا.",
+		  "errorCameraGeneric": "تعذر الوصول إلى الكاميرا. يُرجى المحاولة مرة أخرى.",
+		  "errorCameraPermission": "تم رفض إذن الكاميرا. يُرجى تفعيله في إعدادات متصفحك.",
+		  "errorCameraNotFound": "لم يتم العثور على كاميرا على هذا الجهاز."
+		},
+		"COMMON": {
+		 "ACTIONS": "الإجراءات",
+		 "NAME": "الإسم",
+		 "EMAIL": "الإيميل",
+		 "PHONE": "التليفون",
+		 "ADDRESS": "العنوان",
+		 "WEBSITE": "الموقع الإليكترونى",
+		 "LOADING": "تحميل...",
+		 "SAVING": " حفظ ...",
+		 "REQUIRED_FIELD": "{{fieldName}} مطلوب.",
+		 "INVALID_EMAIL": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+		 "SERIAL_ID": "معرف التسلسل",
+		 "PARENT_SERIAL_ID": "معرف التسلسل الرئيسي",
+		 "DESCRIPTION": "الوصف",
+		 "SEARCH": "بحث",
+		 "BUTTONS": {
+		   "CREATE": "إنشاء",
+		   "UPDATE": "تحديث",
+		   "DELETE": "حذف",
+		   "CANCEL": "إلغاء",
+		   "RETRY": "إعادة المحاولة",
+		   "OK": "نعم",
+		   "DISMISS": "رفض",
+		   "SAVE": "حفظ",
+		   "EDIT": "تعديل",
+		    "CLEAR_FILTER": "إزالة التصفيه",
+			"REFRESH": "تنشيط",
+			"CLEAR": "تفريغ"
+		 },
+		 "CONFIRMATION": {
+			 "DELETE_TITLE": "تأكيد الحذف",
+			 "DELETE_MESSAGE": "هل أنت متأكد من حذف \"{{itemName}}\"؟ لا يمكن التراجع عن هذا الإجراء."
+		 },
+		 "ERRORS": {
+		   "LOAD_FAILED": "فشل تحميل البيانات.",
+		   "SAVE_FAILED": "فشل في حفظ البيانات.",
+		   "DELETE_FAILED": "فشل في حذف البيانات."
+		 },
+		 "NO_DATA_FOUND": "لم يتم العثور على أي عناصر.",
+		 "NO_DATA_MATCHING_FILTER": "لم يتم العثور على أي عناصر مطابقة للفلتر \"{{filterValue}}\""
+		 ,"VIEWS": {
+			"TREE": "عرض الشجرة",
+			"TABLE": "عرض الجدول"
+		},
+		"FIELD_READONLY_EDIT": "لا يمكن تغييره بعد الإنشاء."
+	   },
+	   "COMPANY": {
+		 "ENTITY": "شركة",
+		 "ENTITY_PLURAL": "الشركات",
+		 "TAX_ID": "رقم التعريف الضريبي",
+		 "LIST": {
+		   "TITLE": "إدارة الشركات",
+		   "FILTER_LABEL": "شركات التصفية",
+		   "FILTER_PLACEHOLDER": "البحث حسب الاسم ورقم التعريف الضريبي وما إلى ذلك.",
+		   "CREATE_BUTTON": "إنشاء شركة",
+		   "EDIT_BUTTON_ARIA": "تحرير الشركة",
+		   "DELETE_BUTTON_ARIA": "حذف الشركة",
+		   "PAGINATOR_ARIA": "اختر صفحة الشركات"
+		 },
+		 "DIALOG": {
+		   "CREATE_TITLE": "إنشاء شركة جديدة",
+		   "EDIT_TITLE": "تحرير الشركة",
+		   "CREATE_INFO": "يرجى ملء التفاصيل الخاصة بالشركة الجديدة.",
+		   "EDIT_INFO": "شركة التحرير: {{companyName}}"
+		 },
+		 "FIELD": {
+		   "NAME": {
+			 "LABEL": "إسم الشركة"
+		   },
+		   "TAX_ID": {
+			 "LABEL": "رقم التعريف الضريبي"
+		   }
+		 },
+		 "SUCCESS": {
+			 "CREATED": "تم إنشاء الشركة بنجاح!",
+			 "UPDATED": "تم تحديث الشركة بنجاح!",
+			 "DELETED": "تم حذف الشركة بنجاح!"
+		 },
+		 "ERRORS": {
+			 "LOAD_FAILED": "فشل تحميل الشركات.",
+			 "SAVE_FAILED": "فشل في حفظ الشركة.",
+			 "DELETE_FAILED": "فشل في حذف الشركة.",
+			 "NOT_FOUND": "لم يتم العثور على الشركة."
+		 }
+	   },
+	   "DEPARTMENT": {
+		 "ENTITY": "الإدارة",
+		 "ENTITY_PLURAL": "الإدارات",
+		 "TREE": {
+		   "TITLE": "إدارة الإدارات (التسلسل الهرمي)",
+		   "ADD_ROOT": "إضافة إدارة الجذر",
+		   "ADD_CHILD": "إضافة إدارة التابع ",
+		   "EDIT_NODE": "تحرير الإدارة",
+		   "DELETE_NODE": "حذف الإدارة",
+		   "CONFIRM_DELETE_TITLE": "تأكيد حذف الإدارة",
+		   "CONFIRM_DELETE_MESSAGE": "هل أنت متأكد من رغبتك في حذف الإدارة \"{{departmentName}}\" ({{serialId}})؟ قد يؤثر هذا أيضًا على الأقسام الفرعية إذا لم تتم إدارتها بواسطة الخادم.",
+		   "LOADING_TREE": "جاري تحميل هيكل الإدارة...",
+		   "LOAD_ERROR": "فشل تحميل التسلسل الهرمي للإدارة.",
+		   "NO_DEPARTMENTS": "لم يتم العثور على إدارات لهذه الشركة.",
+		     "FILTER_LABEL": "تصفية الإدارات",
+             "FILTER_PLACEHOLDER": "البحث بالإسم و الرقم التعريفى"
+		 },
+		 "DIALOG": {
+		   "CREATE_TITLE": "إنشاء إدارة جديدة",
+		   "CREATE_CHILD_TITLE": "إنشاء إدارة تابعة",
+		   "EDIT_TITLE": "تحرير الإدارة",
+		   "PARENT_INFO": "القسم الرئيسي (المعرف التسلسلي): {{parentSerialId}}",
+		   "SERIAL_ID_REQUIRED": "يجب إدخال معرف التسلسل.",
+		   "SERIAL_ID_EXISTS": "هذا المعرف التسلسلي موجود بالفعل.", 
+		   "NAME_REQUIRED": "اسم الإدارة مطلوب."
+		 },
+		 "FIELD": {
+			"NAME": { "LABEL": "اسم الإدارة" },
+			"SERIAL_ID": { "LABEL": "معرف التسلسل", "PLACEHOLDER": "أدخل معرفًا تسلسليًا فريدًا" },
+			"PARENT_SERIAL_ID": {
+				"LABEL": "الإدارة الرئيسية",
+				"PLACEHOLDER": "تحديد الإدارة الرئيسية",
+				"NONE_OPTION": "-- لا يوجد (إدارة الجذر) --",
+				"NO_PARENTS_HINT": "لا يوجد أقسام أخرى متاحة."
+			 },
+			"DESCRIPTION": { "LABEL": "الوصف", "PLACEHOLDER": "أدخل وصفًا اختياريًا" }
+		},
+		 "SUCCESS": {
+			 "CREATED": "تم إنشاء الإدارة بنجاح",
+			 "UPDATED": "تم تعديل الإدارة بنجاح",
+			 "DELETED": "تم حذف الإدارة بنجاح"
+		 },
+		 "ERRORS": {
+			 "LOAD_FAILED": "فشل فى تحميل الإدارات",
+			 "SAVE_FAILED": " فشل فى حفظ الإدارة",
+			 "DELETE_FAILED": " فشل فى حذف الإدارة",
+			 "NOT_FOUND": "الإدارة غير موجوده",
+			 "CONFLICT": "حدث تعارض. قد يكون المعرف التسلسلي موجودًا أو أن الحذف محظور."
+		 }
+	   },
+	   "FIN_ACCOUNT": {
+		"ENTITY": "الحساب المالي",
+		"ENTITY_PLURAL": "الحسابات المالية",
+		"MANAGER": {
+			"TITLE": "إدارة الحسابات المالية",
+			"ADD_ROOT_BUTTON": "إضافة حساب الجذر",
+			"SEARCH_PLACEHOLDER": "بحث بواسطة الأسم و المسلسل و النوع"
+		},
+		"TREE": {
+			"ADD_CHILD_TOOLTIP": "إضافة حساب تابع"
+		},
+		 "DIALOG": {
+		  "CREATE_TITLE": "إنشاء حساب مالي جديد",
+		  "EDIT_TITLE": "تعديل الحساب المالي"
+		},
+		"FIELD": {
+			"SERIAL_ID": { "LABEL": "رمز الحساب / الرقم التسلسلي" },
+			"PARENT_SERIAL_ID": {
+				"LABEL": "الحساب الرئيسى",
+				"NONE_OPTION": "-- غير (حساب الجذر) --",
+				"NO_PARENTS_HINT": "لا توجد حسابات  كحساب رئيسي."
+			 },
+			 "ACCOUNT_TYPE": { "LABEL": "نوع الحساب" },
+			 "ACCOUNT_CATEGORY": { "LABEL": "التصنيف" },
+			 "BALANCE": { "LABEL": "الرصيد" },
+			 "CURRENCY": {
+				"LABEL": "العملة",
+				"HINT": " ثلاثة حروف ،EGP أو USD",
+				"LENGTH_ERROR": "يجب أن يكون 3 أحرف."
+			  },
+			 "DESCRIPTION": { "LABEL": "وصف" },
+			 "IS_ACTIVE": { "LABEL": "تفعيل" },
+			 "IS_DEBIT": { "LABEL": "طبيعة الخصم" },
+			 "IS_CASH": { "LABEL": "حساب نقدي" },
+			 "IS_BANK": { "LABEL": "حساب بنكى" },
+			 "IS_CONTROL": { "LABEL": "حساب التحكم" }
+		},
+		"SUCCESS": {
+			"CREATED": "تم إنشاء الحساب المالي بنجاح!",
+			"UPDATED": "تم تحديث الحساب المالي بنجاح!",
+			"DELETED": "تم حذف الحساب المالي بنجاح!"
+		},
+		"ERRORS": {
+			"LOAD_FAILED": "فشل تحميل الحسابات المالية.",
+			"LOAD_TYPES_FAILED": "فشل تحميل أنواع الحسابات المالية.",
+			"SAVE_FAILED": "فشل تحديث الحساب المالي.",
+			"DELETE_FAILED": "فشل حذف الحساب المالي."
+		}
+	  }
+  }

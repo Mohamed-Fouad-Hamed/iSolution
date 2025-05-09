@@ -1,1 +1,98 @@
-/* You can add global styles to this file, and also import other style files */
+// Import the custom theme. This is where mat.core and theme applications happen.
+@use './custom-theme'; // Ensure path is correct
+
+// Global HTML and Body styles
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base); // From custom-theme.scss :root
+  // line-height: 1.5; // Good default for readability
+  // background-color: var(--app-background-color); // Set by custom-theme.scss body.dark-theme
+  // color: var(--app-text-color); // Set by custom-theme.scss body.dark-theme
+}
+
+// RTL font application
+html[dir="rtl"] body {
+  font-family: var(--font-family-ar); // From custom-theme.scss :root
+}
+
+// Mixed content language-specific fonts (optional but good for precision)
+*:lang(ar) {
+  font-family: var(--font-family-ar);
+}
+*:lang(en) {
+  font-family: var(--font-family-en);
+}
+
+// Utility classes for forcing fonts
+.force-english-font {
+  font-family: var(--font-family-en) !important; // Add !important if needed to override specifics
+}
+.force-arabic-font {
+  font-family: var(--font-family-ar) !important; // Add !important if needed
+}
+
+// Material Icon font fix (keep this if you've had issues)
+// Ensure you link the icon fonts in index.html or angular.json styles
+mat-icon.material-icons,
+mat-icon.material-icons-outlined,
+mat-icon.material-icons-round,
+mat-icon.material-icons-sharp {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr !important; // Icons are always LTR
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+mat-icon.material-icons { font-family: 'Material Icons' !important; }
+mat-icon.material-icons-outlined { font-family: 'Material Icons Outlined' !important; }
+mat-icon.material-icons-round { font-family: 'Material Icons Round' !important; }
+mat-icon.material-icons-sharp { font-family: 'Material Icons Sharp' !important; }
+
+
+// RTL fixes for specific inputs (good to have)
+[dir="rtl"] {
+  mat-form-field input[type="tel"],
+  mat-form-field input[type="number"] { // Added number for consistency
+    text-align: right; // Or `end` if supported by browser and mat-form-field internals
+    direction: rtl;    // Explicit direction for input content
+  }
+}
+
+// Example of using logical properties (keep this as a reminder/example)
+// .my-custom-card {
+//   margin-inline-start: 16px;
+//   padding-inline-end: 8px;
+//   border-inline-start: 2px solid blue;
+//   text-align: start;
+// }
+
+// Responsive card example (good)
+.is-card {
+  width: 100%; // Mobile first
+  padding: 1rem;
+  box-sizing: border-box; // Good practice
+
+  @media (min-width: 768px) { // Tablet and up
+    width: 75%;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 1024px) { // Desktop
+    width: 50%;
+    padding: 2rem;
+  }
+}

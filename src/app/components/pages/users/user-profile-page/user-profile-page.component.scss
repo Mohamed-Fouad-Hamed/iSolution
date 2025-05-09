@@ -1,0 +1,123 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  position: relative; // Needed if using absolute positioning for loading shade
+}
+
+.profile-page-container {
+  // Basic container setup
+}
+
+// Loading overlay
+.loading-shade {
+  position: absolute; // Or fixed if you want it over everything
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7); // Semi-transparent white
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Header styling
+.profile-header {
+  position: relative;
+  height: 250px; // Adjust height as needed
+  margin-bottom: 80px; // Space for the overlapping avatar
+}
+
+.background-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 300); // Fallback background
+  overflow: hidden; // Prevent image overflow if aspect ratio differs
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // Cover ensures the area is filled
+  display: block; // Remove extra space below image
+}
+
+.avatar-container {
+  position: absolute;
+  bottom: -75px; // Half of avatar height to make it overlap
+  left: 5%; // Adjust horizontal position
+  width: 150px; // Avatar size
+  height: 150px;
+  z-index: 2; // Above background
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid white; // Use theme background color if preferred
+  object-fit: cover;
+  display: block;
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 400); // Placeholder color
+  // Use mat-elevation-z# class instead of custom shadow for consistency
+}
+
+// FAB styling
+.upload-fab {
+  position: absolute;
+  z-index: 3; // Above avatar/background
+
+  // FAB spinner needs adjustment to center it
+  .fab-spinner .mdc-circular-progress__determinate-circle,
+  .fab-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+      stroke: white; // Or theme contrast color
+  }
+}
+
+.background-fab {
+  bottom: 16px;
+  right: 16px;
+}
+
+.avatar-fab {
+  // Position relative to the avatar container bottom-right
+  bottom: 5px;
+  right: 5px;
+}
+
+// User details section
+.user-details-container {
+  padding: 16px 24px; // Add some padding
+  margin-top: 16px; // Space below header/avatar
+}
+
+.user-name {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+// Adjust Material List Item styles if needed
+.mat-mdc-list-item {
+  height: auto !important; // Allow items to grow if line text wraps
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.mat-mdc-list-item .mat-mdc-list-item-icon {
+  color: mat.get-color-from-palette(mat.$grey-palette, 600); // Icon color
+  margin-right: 16px;
+}
+
+.error-message {
+  text-align: center;
+  color: mat.get-color-from-palette(mat.$red-palette, 500);
+  padding: 20px;
+}

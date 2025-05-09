@@ -1,0 +1,100 @@
+// src/app/features/company/company-list/company-list.component.scss
+:host {
+    display: block;
+    padding: 20px;
+  }
+  
+  .company-list-container {
+    max-width: 1200px; // Control max width for large screens
+    margin: 0 auto; // Center the container
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .action-bar {
+    display: flex;
+    flex-wrap: wrap; // Allow items to wrap on smaller screens
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; // Spacing between items
+    margin-bottom: 20px;
+  
+    .filter-field {
+      flex-grow: 1; // Allow filter to take available space
+      min-width: 250px; // Minimum width for the filter
+    }
+  }
+  
+  .spinner-container,
+  .error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    gap: 10px;
+  
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+    }
+  }
+  
+  .error-message span {
+    margin: 0 10px;
+  }
+  
+  .table-container {
+    overflow-x: auto; // Make table horizontally scrollable on small screens
+  }
+  
+  .company-table {
+    width: 100%;
+  
+    // Make columns reasonably sized, adjust as needed
+    .mat-column-name {
+      flex: 0 0 25%; // Example fixed width
+      min-width: 150px;
+    }
+    .mat-column-taxIdentificationNumber {
+       flex: 0 0 15%;
+       min-width: 120px;
+    }
+    .mat-column-email {
+       flex: 0 0 25%;
+       min-width: 180px;
+    }
+     .mat-column-phone {
+       flex: 0 0 15%;
+       min-width: 120px;
+    }
+    .mat-column-actions {
+      flex: 0 0 120px; // Fixed width for action buttons
+      text-align: right; // Align buttons to the right
+      justify-content: flex-end; // Needed for mat-icon-button alignment
+    }
+  }
+  
+  // Style for no data row
+  .mat-row .mat-cell.cdk-column-undefined {
+    text-align: center;
+    font-style: italic;
+    padding: 20px;
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 600px) {
+    .action-bar {
+      flex-direction: column;
+      align-items: stretch; // Make items full width
+    }
+  
+    // Optionally hide less important columns on small screens
+    // .mat-column-phone, .mat-column-email {
+    //   display: none;
+    // }
+  }

@@ -1,0 +1,49 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  // color: var(--app-text-color); // If host has direct text
+}
+
+.table-container {
+  overflow: auto;
+}
+
+.account-table {
+  width: 100%;
+  // Material table colors (header, rows, text) are handled by Material theming.
+}
+
+.node-type-icon { // Custom icon within a cell
+  font-size: 1.1em;
+  vertical-align: middle;
+  margin-inline-end: 8px;
+  color: var(--app-icon-color-subtle); // Use CSS variable
+}
+
+.numeric-cell {
+  text-align: right;
+  justify-content: flex-end;
+}
+th.mat-header-cell.numeric-cell {
+  text-align: right;
+}
+
+.mat-column-isActive { // Mat-icon color (primary/disabled) handled by Material theming
+  text-align: center;
+  width: 100px;
+}
+
+.mat-column-actions { // Mat-icon-button colors handled by Material theming
+  width: 110px;
+}
+
+.no-data-cell { // Text inside a Material table cell
+  text-align: center;
+  padding: 30px;
+  // color will be handled by mat-table theming, but if you want it more subtle:
+  color: var(--app-secondary-text-color); // Use CSS variable
+  font-style: italic;
+}
+
+// MatPaginator colors are handled by Material theming.

@@ -1,0 +1,68 @@
+.full-width {
+    width: 100%;
+    margin-bottom: 1rem; // Consistent spacing
+  }
+  
+  .parent-info {
+      font-style: italic;
+      color: var(--mat-gray-700, #616161);
+      margin-bottom: 1rem;
+      padding: 0.5rem 0.75rem;
+      border-inline-start: 4px solid var(--mat-primary-color, blue); // Theme primary color
+      background-color: var(--mat-gray-100, #f5f5f5);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 4px;
+  }
+  
+  .spinner-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      color: var(--mat-gray-700, #616161);
+      min-height: 40px; // Reserve space
+  }
+  
+  .error-message-dialog {
+      color: var(--mat-warn-color, red);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      font-size: 0.9em;
+      padding: 0.5rem;
+      background-color: rgba(var(--mat-warn-rgb, 244, 67, 54), 0.1); // Light background for error
+      border-radius: 4px;
+  }
+  
+  // Ensure actions div is standard height and padding
+  [mat-dialog-actions] {
+    min-height: 52px;
+    padding: 8px 24px !important; // Override potential defaults
+    margin-top: 1rem;
+  }
+  
+  // --- RTL Input Fixes ---
+  // Apply directionality fixes to inputs and textareas within the dialog
+  :host-context([dir="rtl"]) {
+      mat-form-field {
+        input[type="text"], // Add other types as needed
+        input[type="search"],
+        textarea {
+          text-align: right;
+          direction: rtl;
+        }
+      }
+      // Ensure mat-select text aligns right in RTL
+      .mat-mdc-select-value-text {
+         text-align: right;
+      }
+      // Adjust info icon position
+      .parent-info {
+          border-inline-start: none;
+          border-inline-end: 4px solid var(--mat-primary-color, blue);
+      }
+  }

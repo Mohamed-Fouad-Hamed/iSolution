@@ -1,0 +1,76 @@
+@use '../../../../../styles/shared-styles.scss' as *;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 70vh; // Adjust as needed
+  padding: 20px;
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+// Style the checkbox and optional forgot password link container
+.extra-options {
+  display: flex;
+  justify-content: space-between; // Puts checkbox left, link right
+  align-items: center;
+  margin-top: -10px; // Adjust spacing if needed
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mat-warn-color, #f44336); // Use theme color or specific color
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(244, 67, 54, 0.1); // Light background for warning
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+}
+
+.login-actions {
+  display: flex;
+  justify-content: center; // Center the login button
+  margin-top: 10px;
+}
+
+.login-button {
+    width: 100%; // Make login button full width within actions
+    max-width: 200px; // Or a fixed max-width
+    min-height: 40px; // Ensure consistent button height with spinner
+    display: inline-flex; // Helps center spinner
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-section {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+ // border-top: 1px solid rgba(0, 0, 0, 0.12); // Separator line
+  font-size: 0.9em;
+
+  span {
+    margin-inline-end: 5px;
+  }
+
+  a { // Style the sign-up link
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+
+// Style for progress spinner inside the button
+mat-progress-spinner {
+  display: inline-block; // Make spinner sit nicely in the button flow
+}

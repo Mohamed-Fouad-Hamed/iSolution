@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>
+    <ng-container *ngIf="!isEditMode && data.parentSerialId">{{ 'DEPARTMENT.DIALOG.CREATE_CHILD_TITLE' | translate }}</ng-container>
+    <ng-container *ngIf="!isEditMode && !data.parentSerialId">{{ 'DEPARTMENT.DIALOG.CREATE_TITLE' | translate }}</ng-container>
+    <ng-container *ngIf="isEditMode">{{ 'DEPARTMENT.DIALOG.EDIT_TITLE' | translate }}</ng-container>
+</h1>
+
+<div mat-dialog-content>
+    <p *ngIf="!isEditMode && data.parentSerialId" class="parent-info">
+        <mat-icon inline>{{ currentLanguage.dir === 'rtl' ? 'subdirectory_arrow_left' : 'subdirectory_arrow_right' }} </mat-icon>
+        {{ 'DEPARTMENT.DIALOG.PARENT_INFO' | translate:{ parentSerialId: data.parentSerialId } }}
+    </p>
+
+    <form [formGroup]="departmentForm" id="departmentForm" novalidate>
+        <!-- Name -->
+        <mat-form-field appearance="outline" class="full-width" cdkTrapFocus>
+            <mat-label>{{ 'DEPARTMENT.FIELD.NAME.LABEL' | translate }}</mat-label>
+            <input matInput formControlName="name" required maxlength="255" cdkFocusInitial>
+             <mat-error *ngIf="f['name'].touched && f['name'].hasError('required')">
+                {{ 'COMMON.REQUIRED_FIELD' | translate:{ fieldName: ('DEPARTMENT.FIELD.NAME.LABEL' | translate) } }}
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Serial ID -->
+      <!-- <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'DEPARTMENT.FIELD.SERIAL_ID.LABEL' | translate }}</mat-label>
+            <input matInput formControlName="serialId" required maxlength="50"
+                   [placeholder]="'DEPARTMENT.FIELD.SERIAL_ID.PLACEHOLDER' | translate">
+            <mat-error *ngIf="f['serialId'].touched && f['serialId'].hasError('required')">
+                {{ 'COMMON.REQUIRED_FIELD' | translate:{ fieldName: ('DEPARTMENT.FIELD.SERIAL_ID.LABEL' | translate) } }}
+            </mat-error>
+           
+        </mat-form-field> -->
+
+        <!-- Parent Serial ID (MatSelect) -->
+        <mat-form-field appearance="outline" class="full-width">
+           <mat-label>{{ 'DEPARTMENT.FIELD.PARENT_SERIAL_ID.LABEL' | translate }}</mat-label>
+           <mat-select formControlName="parentSerialId" [placeholder]="'DEPARTMENT.FIELD.PARENT_SERIAL_ID.PLACEHOLDER' | translate">
+                <mat-option [value]="null">
+                    {{ 'DEPARTMENT.FIELD.PARENT_SERIAL_ID.NONE_OPTION' | translate }}
+                </mat-option>
+                <mat-option *ngFor="let parent of availableParents" [value]="parent.serialId">
+                    <!-- Show indentation based on potential parent's level if available, complex -->
+                    {{ parent.name }} ({{ parent.serialId }})
+                </mat-option>
+           </mat-select>
+           <mat-hint *ngIf="availableParents.length === 0 && !f['parentSerialId'].value">{{ 'DEPARTMENT.FIELD.PARENT_SERIAL_ID.NO_PARENTS_HINT' | translate }}</mat-hint>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'DEPARTMENT.FIELD.DESCRIPTION.LABEL' | translate }}</mat-label>
+            <textarea matInput formControlName="description" rows="4" maxlength="1000"
+                      [placeholder]="'DEPARTMENT.FIELD.DESCRIPTION.PLACEHOLDER' | translate"></textarea>
+        </mat-form-field>
+
+    </form>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="spinner-container">
+        <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+        <span>{{ 'COMMON.SAVING' | translate }}...</span>
+    </div>
+
+    <!-- Error Message -->
+    <p *ngIf="error" class="error-message-dialog">
+        <mat-icon color="warn" inline>error_outline</mat-icon> {{ error }}
+    </p>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="onCancel()" [disabled]="isLoading">
+        {{ 'COMMON.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button mat-raised-button color="primary" type="submit" form="departmentForm" (click)="onSave()" [disabled]="departmentForm.invalid || isLoading">
+        {{ (isEditMode ? 'COMMON.BUTTONS.UPDATE' : 'COMMON.BUTTONS.CREATE') | translate }}
+    </button>
+</div>

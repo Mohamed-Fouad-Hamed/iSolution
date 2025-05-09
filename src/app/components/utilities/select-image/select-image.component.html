@@ -1,0 +1,85 @@
+<!-- Dialog Title -->
+<h2 mat-dialog-title>{{ 'selectImage.title' | translate }}</h2>
+
+<!-- Dialog Content -->
+<mat-dialog-content class="dialog-content">
+
+  <!-- === CAMERA VIEW (Conditional) === -->
+  <div *ngIf="isCameraActive"
+       class="camera-view-container"
+       [hidden]="!isCameraFeedVisible"> <!-- ADD THIS HIDDEN BINDING -->
+       <video #videoElement class="camera-feed" autoplay playsinline muted ></video>
+    <button mat-fab color="primary"
+            class="capture-button"
+            (click)="captureFrame()"
+            [disabled]="isLoading || !isCameraActive" 
+            [attr.aria-label]="'selectImage.captureAriaLabel' | translate">
+      <mat-icon>camera</mat-icon>
+    </button>
+    <button mat-icon-button
+            class="stop-camera-button"
+            (click)="stopCameraStreamAndGoBack()" 
+            [attr.aria-label]="'selectImage.stopCameraAriaLabel' | translate">
+       <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- === IMAGE PREVIEW / PLACEHOLDER (Conditional) === -->
+  <div *ngIf="!isCameraActive" class="image-preview-container"> <!-- Hide when camera active -->
+    <img
+      class="img-selected"
+      *ngIf="previewUrl; else noImageSelected" 
+      [src]="previewUrl"
+      alt="{{ 'selectImage.previewAlt' | translate }}" />
+
+    <ng-template #noImageSelected>
+      <div class="placeholder">
+        <mat-icon class="placeholder-icon">add_photo_alternate</mat-icon>
+        <span>{{ 'selectImage.placeholder' | translate }}</span>
+      </div>
+    </ng-template>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading && !isCameraActive" class="loading-overlay"> <!-- Hide loading when camera active -->
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+
+    <!-- Action Buttons Over Image/Placeholder -->
+    <!-- Hide these buttons when camera is active -->
+    <div class="image-actions" *ngIf="!isLoading && !isCameraActive">
+      <ng-container *ngIf="!previewUrl">
+         <button mat-icon-button color="primary"
+                 (click)="activateCamera()" 
+                 [attr.aria-label]="'selectImage.cameraAriaLabel' | translate">
+           <mat-icon>photo_camera</mat-icon>
+         </button>
+         <button mat-icon-button color="primary"
+                 (click)="selectImageFromGallery()"
+                 [attr.aria-label]="'selectImage.galleryAriaLabel' | translate ">
+           <mat-icon>photo_library</mat-icon>
+         </button>
+      </ng-container>
+
+      <button *ngIf="previewUrl"
+              mat-icon-button color="warn"
+              (click)="resetImage()"
+              class="delete-button"
+              [attr.aria-label]="'selectImage.deleteAriaLabel' | translate">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<!-- Dialog Actions -->
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">
+    {{ 'selectImage.cancelButton' | translate }}
+  </button>
+  <button mat-raised-button color="primary"
+          (click)="confirm()"
+          [disabled]="!selectedFile || isLoading"> 
+    {{ 'selectImage.confirmButton' | translate }}
+  </button>
+</mat-dialog-actions>

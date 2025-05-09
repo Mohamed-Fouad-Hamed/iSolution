@@ -1,0 +1,153 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  // Set max height constraints on the host if needed,
+  // often better done via dialog config (maxHeight)
+  // max-height: 85vh;
+}
+
+// --- Style the Dialog Content Area ---
+// Use ::ng-deep cautiously, only if necessary to override Material styles.
+// Often direct styling works for dialog content.
+// :host ::ng-deep mat-dialog-content {
+mat-dialog-content.dialog-content {
+  padding: 0 24px 20px 24px !important; // Keep padding, adjust as needed
+  overflow: hidden !important; // Prevent scrolling on the content area itself
+  display: flex !important; // Use flexbox
+  flex-direction: column !important; // Stack elements vertically
+  // Remove fixed height constraints here, let flexbox manage it
+   min-height: 300px; // Remove or reduce significantly
+   max-height: 70vh; // Keep a max-height if desired, relative to viewport
+}
+
+// --- Style the Image Preview Container ---
+.image-preview-container {
+  position: relative; // Keep for overlays/buttons
+  border: 1px dashed mat.get-color-from-palette(mat.$grey-palette, 300); // Lighter border
+  border-radius: 4px;
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 50); // Very light background
+
+  overflow: hidden; // *** CRITICAL: Prevent scrollbars on this container ***
+  flex-grow: 1; // *** CRITICAL: Allow this container to take available vertical space ***
+
+  display: flex; // Use flex to center the content (image or placeholder)
+  justify-content: center;
+  align-items: center;
+
+  // Set a minimum height for when no image is present, but allow growth
+  min-height: 200px; // Adjust as needed for placeholder visibility
+}
+
+// --- Style the Image Itself ---
+.img-selected {
+  display: block; // Remove extra space below image
+  max-width: 100%; // Cannot exceed container width
+  max-height: 100%; // Cannot exceed container height
+  object-fit: contain; // Scale image down to fit, preserving aspect ratio
+  // Optional: Add subtle transition for smoother loading appearance
+  // transition: opacity 0.3s ease-in-out;
+  // opacity: 1; // Start visible once loaded
+}
+
+// --- Style the Placeholder ---
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; // Padding inside placeholder
+  color: mat.get-color-from-palette(mat.$grey-palette, 500);
+  text-align: center;
+  // Ensure it fills the container if needed, but flex align/justify should handle it
+  // width: 100%;
+  // height: 100%;
+}
+
+.placeholder-icon {
+  font-size: 56px; // Larger icon
+  width: 56px;
+  height: 56px;
+  margin-bottom: 12px;
+}
+
+// --- Loading Overlay ---
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  border-radius: 4px; // Match container border-radius
+}
+
+// --- Action Buttons over Image ---
+.image-actions {
+  position: absolute;
+  bottom: 8px; // Adjust positioning
+  left: 50%; // Center horizontally
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 1;
+  padding: 6px 10px;
+  background-color: rgba(0, 0, 0, 0.4); // Darker background for better contrast
+  border-radius: 18px; // Pill shape
+
+  button[mat-icon-button] {
+    color: white; // Make icons white
+  }
+}
+
+// --- Dialog Actions Footer ---
+// Ensure actions don't get pushed off screen if content is short
+// (Flexbox on mat-dialog-content handles this mostly)
+.mat-mdc-dialog-actions {
+  margin-top: 16px; // Space above actions
+  padding-bottom: 16px !important; // Ensure padding below buttons
+  flex-shrink: 0; // Prevent actions area from shrinking
+}
+
+.camera-view-container {
+  position: relative; // For positioning buttons
+  width: 100%;
+  height: 100%; // Take full height of the content area
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; // Black background for camera feed
+  overflow: hidden; // Hide parts of video outside container
+}
+
+.camera-feed {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  // Mirror the feed if desired (like a selfie camera)
+  // transform: scaleX(-1);
+}
+
+.capture-button {
+  position: absolute !important; // Override default FAB positioning if needed
+  bottom: 20px;
+  // Center horizontally: left: 50%; transform: translateX(-50%);
+  // Or keep default FAB placement if preferred
+}
+
+.stop-camera-button {
+  position: absolute !important;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.3); // Make it visible on video
+  color: white;
+}
+
+// Hide image action buttons when camera is active (already handled by *ngIf)
+// .camera-active .image-actions {
+//   display: none;
+// }

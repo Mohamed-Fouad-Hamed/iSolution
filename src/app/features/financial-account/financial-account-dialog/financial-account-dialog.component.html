@@ -1,0 +1,114 @@
+<h1 mat-dialog-title>
+    {{ (isEditMode ? 'FIN_ACCOUNT.DIALOG.EDIT_TITLE' : 'FIN_ACCOUNT.DIALOG.CREATE_TITLE') | translate }}
+  </h1>
+  
+  <form [formGroup]="accountForm" novalidate>
+    <div mat-dialog-content class="dialog-content">
+  
+      <!-- Row 1: Name & Serial -->
+      <div class="form-row">
+        
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'COMMON.NAME' | translate }}</mat-label>
+          <input matInput formControlName="name" required cdkFocusInitial>
+          <mat-error *ngIf="f['name'].touched && f['name'].hasError('required')">
+            {{ 'COMMON.REQUIRED_FIELD' | translate:{ fieldName: ('COMMON.NAME' | translate) } }}
+          </mat-error>
+        </mat-form-field>
+  
+       <!-- <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'FIN_ACCOUNT.FIELD.SERIAL_ID.LABEL' | translate }}</mat-label>
+          <input matInput formControlName="serialId" required [readonly]="isEditMode">
+          <mat-error *ngIf="f['serialId'].touched && f['serialId'].hasError('required')">
+             {{ 'COMMON.REQUIRED_FIELD' | translate:{ fieldName: ('FIN_ACCOUNT.FIELD.SERIAL_ID.LABEL' | translate) } }}
+          </mat-error>
+           <mat-hint *ngIf="isEditMode">{{ 'COMMON.FIELD_READONLY_EDIT' | translate }}</mat-hint>
+        </mat-form-field> -->
+      </div>
+  
+      <!-- Row 2: Parent & Type -->
+      <div class="form-row">
+         <mat-form-field appearance="outline" class="form-field">
+              <mat-label>{{ 'FIN_ACCOUNT.FIELD.PARENT_SERIAL_ID.LABEL' | translate }}</mat-label>
+              <mat-select formControlName="parentSerialId">
+                  <mat-option [value]="null">
+                      {{ 'FIN_ACCOUNT.FIELD.PARENT_SERIAL_ID.NONE_OPTION' | translate }}
+                  </mat-option>
+                  <mat-option *ngFor="let parent of availableParents" [value]="parent.serialId">
+                      {{ parent.name }} ({{ parent.serialId }})
+                  </mat-option>
+              </mat-select>
+              <mat-hint *ngIf="availableParents.length === 0 && !f['parentSerialId'].value">{{ 'FIN_ACCOUNT.FIELD.PARENT_SERIAL_ID.NO_PARENTS_HINT' | translate }}</mat-hint>
+         </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>{{ 'FIN_ACCOUNT.FIELD.ACCOUNT_TYPE.LABEL' | translate }}</mat-label>
+          <mat-select formControlName="accountTypeId" required>
+             <mat-option *ngFor="let type of availableTypes" [value]="type.id">
+                  {{ type.name }}
+              </mat-option>
+          </mat-select>
+           <mat-error *ngIf="f['accountTypeId'].touched && f['accountTypeId'].hasError('required')">
+             {{ 'COMMON.REQUIRED_FIELD' | translate:{ fieldName: ('FIN_ACCOUNT.FIELD.ACCOUNT_TYPE.LABEL' | translate) } }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+       <!-- Row 3: Category & Currency -->
+      <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+              <mat-label>{{ 'FIN_ACCOUNT.FIELD.ACCOUNT_CATEGORY.LABEL' | translate }}</mat-label>
+              <input matInput formControlName="accountCategory">
+              <!-- Add validation if needed -->
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+              <mat-label>{{ 'FIN_ACCOUNT.FIELD.CURRENCY.LABEL' | translate }}</mat-label>
+              <input matInput formControlName="currency" required minlength="3" maxlength="3">
+              <mat-hint>{{ 'FIN_ACCOUNT.FIELD.CURRENCY.HINT' | translate }}</mat-hint>
+               <mat-error *ngIf="f['currency'].touched && f['currency'].hasError('required')">
+                  Required
+              </mat-error>
+               <mat-error *ngIf="f['currency'].touched && (f['currency'].hasError('minlength') || f['currency'].hasError('maxlength'))">
+                  {{ 'FIN_ACCOUNT.FIELD.CURRENCY.LENGTH_ERROR' | translate }}
+              </mat-error>
+          </mat-form-field>
+      </div>
+  
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>{{ 'FIN_ACCOUNT.FIELD.DESCRIPTION.LABEL' | translate }}</mat-label>
+        <textarea matInput formControlName="description" rows="2"></textarea>
+      </mat-form-field>
+  
+      <!-- Boolean Flags Section -->
+      <div class="flags-section">
+          <mat-slide-toggle formControlName="isActive" color="primary">{{ 'FIN_ACCOUNT.FIELD.IS_ACTIVE.LABEL' | translate }}</mat-slide-toggle>
+          <mat-checkbox formControlName="isDebit" color="primary">{{ 'FIN_ACCOUNT.FIELD.IS_DEBIT.LABEL' | translate }}</mat-checkbox>
+          <mat-checkbox formControlName="isCashAccount" color="primary">{{ 'FIN_ACCOUNT.FIELD.IS_CASH.LABEL' | translate }}</mat-checkbox>
+          <mat-checkbox formControlName="isBankAccount" color="primary">{{ 'FIN_ACCOUNT.FIELD.IS_BANK.LABEL' | translate }}</mat-checkbox>
+          <mat-checkbox formControlName="isControlAccount" color="primary">{{ 'FIN_ACCOUNT.FIELD.IS_CONTROL.LABEL' | translate }}</mat-checkbox>
+      </div>
+  
+      <!-- Loading Spinner for Save -->
+      <div *ngIf="isLoading" class="spinner-container">
+        <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+        <span>{{ 'COMMON.SAVING' | translate }}...</span>
+      </div>
+  
+      <!-- Error message during save -->
+      <p *ngIf="error" class="error-message-dialog">
+        <mat-icon color="warn" inline>error_outline</mat-icon> {{ error }}
+      </p>
+  
+    </div> <!-- End mat-dialog-content -->
+  
+    <div mat-dialog-actions align="end">
+      <button mat-stroked-button type="button" (click)="onCancel()" [disabled]="isLoading">
+        {{ 'COMMON.BUTTONS.CANCEL' | translate }}
+      </button>
+      <button mat-raised-button color="primary" type="submit" (click)="onSave()" [disabled]="accountForm.invalid || isLoading">
+        {{ (isEditMode ? 'COMMON.BUTTONS.UPDATE' : 'COMMON.BUTTONS.CREATE') | translate }}
+      </button>
+    </div>
+  </form>
