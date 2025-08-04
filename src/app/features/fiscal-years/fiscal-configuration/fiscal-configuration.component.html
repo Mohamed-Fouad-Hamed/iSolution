@@ -1,0 +1,204 @@
+<div class="page-container">
+    <h1 class="page-title">{{ 'FISCAL_CONFIG.TITLE' | translate }}
+      <span *ngIf="accountName"> - {{ accountName }}</span>
+    </h1>
+  
+    <div *ngIf="!accountId" class="error-message-prominent">
+      {{ 'FISCAL_CONFIG.NO_ACCOUNT_ID_IN_STORAGE' | translate }}
+    </div>
+  
+    <ng-container *ngIf="accountId">
+      <!-- Fiscal Years Section -->
+      <mat-card class="table-card">
+        <mat-card-header>
+          <mat-card-title>{{ 'FISCAL_CONFIG.FISCAL_YEARS' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="table-controls">
+            <mat-form-field appearance="outline" class="filter-field">
+              <mat-label>{{ 'GENERAL.SEARCH' | translate }} {{ 'FISCAL_CONFIG.FISCAL_YEARS' | translate }}</mat-label>
+              <input matInput [formControl]="fyFilterCtrl" [placeholder]="('GENERAL.BY_NAME' | translate) + '...'"> <!-- Add BY_NAME -->
+              <button mat-icon-button matSuffix *ngIf="fyFilterCtrl.value" (click)="clearFyFilter()" [attr.aria-label]="'GENERAL.CLEAR' | translate">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="openFiscalYearDialog()">
+              <mat-icon>add</mat-icon> {{ 'FISCAL_CONFIG.ADD_FISCAL_YEAR' | translate }}
+            </button>
+          </div>
+  
+          <div class="spinner-container" *ngIf="isLoadingFY">
+            <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+          </div>
+  
+          <div *ngIf="!isLoadingFY && !fyDataSource.data.length && !fyFilterCtrl.value" class="info-message">
+            {{ 'FISCAL_CONFIG.NO_FISCAL_YEARS_FOUND' | translate }}
+          </div>
+  
+          <div class="table-responsive-wrapper" *ngIf="!isLoadingFY && (fyDataSource.data.length > 0 || fyFilterCtrl.value)">
+            <table mat-table [dataSource]="fyDataSource" matSort #fySort="matSort" class="data-table" (matSortChange)="fyDataSource.sort = fySort">
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.NAME' | translate }}</th>
+                <td mat-cell *matCellDef="let fy">{{ fy.name }}</td>
+              </ng-container>
+              <!-- Serial ID Column -->
+              <ng-container matColumnDef="serialId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'FISCAL_CONFIG.SERIAL_ID' | translate }}</th>
+                <td mat-cell *matCellDef="let fy">{{ fy.serialId }}</td>
+              </ng-container>
+              <!-- StartDate Column -->
+              <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.START_DATE' | translate }}</th>
+                <td mat-cell *matCellDef="let fy">{{ formatDate(fy.startDate) }}</td>
+              </ng-container>
+              <!-- EndDate Column -->
+              <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.END_DATE' | translate }}</th>
+                <td mat-cell *matCellDef="let fy">{{ formatDate(fy.endDate) }}</td>
+              </ng-container>
+               <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.STATUS' | translate }}</th>
+                <td mat-cell *matCellDef="let fy">
+                  <span [ngClass]="{'status-closed': fy.closed, 'status-open': !fy.closed}">
+                    {{ (fy.closed ? 'GENERAL.CLOSED' : 'GENERAL.OPEN') | translate }}
+                  </span>
+                </td>
+              </ng-container>
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>{{ 'GENERAL.ACTIONS' | translate }}</th>
+                <td mat-cell *matCellDef="let fy">
+                  <button mat-icon-button color="primary" (click)="openFiscalYearDialog(fy)" [matTooltip]="'GENERAL.EDIT' | translate">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                   <button mat-icon-button
+                          [color]="fy.closed ? 'accent' : 'warn'"
+                          (click)="toggleFiscalYearStatus(fy, $event)"
+                          [matTooltip]="(fy.closed ? ('GENERAL.OPEN' | translate) : ('GENERAL.CLOSED' | translate)) + ' ' + ('FISCAL_CONFIG.FISCAL_YEAR' | translate)">
+                    <mat-icon>{{ fy.closed ? 'lock_open' : 'lock' }}</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteFiscalYear(fy, $event)" [matTooltip]="'GENERAL.DELETE' | translate">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="fyDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: fyDisplayedColumns;"
+                  (click)="onSelectFiscalYear(row)"
+                  [class.selected-row]="selectedFiscalYear?.id === row.id"
+                  class="clickable-row">
+              </tr>
+              <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="100%" *ngIf="fyDataSource.filter && fyDataSource.filteredData.length === 0">
+                      {{ 'GENERAL.NO_RESULTS_FOR' | translate: {value: fyFilterCtrl.value} }}
+                  </td>
+              </tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-divider *ngIf="fyDataSource.data.length > 0"></mat-divider>
+  
+      <!-- Fiscal Periods Section -->
+      <div *ngIf="!selectedFiscalYear && fyDataSource.data.length > 0" class="info-message selection-prompt">
+        {{ 'FISCAL_CONFIG.SELECT_FISCAL_YEAR_PROMPT' | translate }}
+      </div>
+  
+      <mat-card class="table-card" *ngIf="selectedFiscalYear">
+        <mat-card-header>
+          <mat-card-title>{{ 'FISCAL_CONFIG.FISCAL_PERIODS' | translate }} - {{ selectedFiscalYear.name }}
+              <span [ngClass]="{'status-closed': selectedFiscalYear.closed, 'status-open': !selectedFiscalYear.closed}" class="parent-status">
+                  ({{ (selectedFiscalYear.closed ? 'GENERAL.CLOSED' : 'GENERAL.OPEN') | translate }})
+              </span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="table-controls">
+            <mat-form-field appearance="outline" class="filter-field">
+              <mat-label>{{ 'GENERAL.SEARCH' | translate }} {{ 'FISCAL_CONFIG.FISCAL_PERIODS' | translate }}</mat-label>
+              <input matInput [formControl]="fpFilterCtrl" [placeholder]="('GENERAL.BY_NAME' | translate) + '...'">
+              <button mat-icon-button matSuffix *ngIf="fpFilterCtrl.value" (click)="clearFpFilter()" [attr.aria-label]="'GENERAL.CLEAR' | translate">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="openFiscalPeriodDialog()" [disabled]="selectedFiscalYear.closed">
+              <mat-icon>add</mat-icon> {{ 'FISCAL_CONFIG.ADD_FISCAL_PERIOD' | translate }}
+            </button>
+          </div>
+  
+          <div class="spinner-container" *ngIf="isLoadingFP">
+            <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+          </div>
+  
+          <div *ngIf="!isLoadingFP && !fpDataSource.data.length && !fpFilterCtrl.value" class="info-message">
+              {{ 'FISCAL_CONFIG.NO_FISCAL_PERIODS_FOUND' | translate }}
+          </div>
+  
+          <div class="table-responsive-wrapper" *ngIf="!isLoadingFP && (fpDataSource.data.length > 0 || fpFilterCtrl.value)">
+            <table mat-table [dataSource]="fpDataSource" matSort #fpSort="matSort" class="data-table" (matSortChange)="fpDataSource.sort = fpSort">
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.NAME' | translate }}</th>
+                <td mat-cell *matCellDef="let fp">{{ fp.name }}</td>
+              </ng-container>
+              <!-- Serial ID Column -->
+              <ng-container matColumnDef="serialId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'FISCAL_CONFIG.SERIAL_ID' | translate }}</th>
+                <td mat-cell *matCellDef="let fp">{{ fp.serialId }}</td>
+              </ng-container>
+              <!-- StartDate Column -->
+              <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.START_DATE' | translate }}</th>
+                <td mat-cell *matCellDef="let fp">{{ formatDate(fp.startDate) }}</td>
+              </ng-container>
+              <!-- EndDate Column -->
+              <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.END_DATE' | translate }}</th>
+                <td mat-cell *matCellDef="let fp">{{ formatDate(fp.endDate) }}</td>
+              </ng-container>
+               <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'GENERAL.STATUS' | translate }}</th>
+                <td mat-cell *matCellDef="let fp">
+                  <span [ngClass]="{'status-closed': fp.closed, 'status-open': !fp.closed}">
+                    {{ (fp.closed ? 'GENERAL.CLOSED' : 'GENERAL.OPEN') | translate }}
+                  </span>
+                </td>
+              </ng-container>
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>{{ 'GENERAL.ACTIONS' | translate }}</th>
+                <td mat-cell *matCellDef="let fp">
+                  <button mat-icon-button color="primary" (click)="openFiscalPeriodDialog(fp)" [matTooltip]="'GENERAL.EDIT' | translate">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button
+                          [color]="fp.closed ? 'accent' : 'warn'"
+                          (click)="toggleFiscalPeriodStatus(fp, $event)"
+                          [disabled]="selectedFiscalYear.closed && !fp.closed"
+                          [matTooltip]="(fp.closed ? ('GENERAL.OPEN' | translate) : ('GENERAL.CLOSED' | translate)) + ' ' + ('FISCAL_CONFIG.FISCAL_PERIOD' | translate)">
+                    <mat-icon>{{ fp.closed ? 'lock_open' : 'lock' }}</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteFiscalPeriod(fp, $event)" [matTooltip]="'GENERAL.DELETE' | translate">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="fpDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: fpDisplayedColumns;"></tr>
+               <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="100%" *ngIf="fpDataSource.filter && fpDataSource.filteredData.length === 0">
+                      {{ 'GENERAL.NO_RESULTS_FOR' | translate: {value: fpFilterCtrl.value} }}
+                  </td>
+              </tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>

@@ -1,0 +1,118 @@
+.cost-center-container {
+    padding: 20px;
+  }
+  
+  .controls-card {
+    margin-bottom: 20px;
+  }
+  
+  // New CSS for flex layout on mat-card-content
+  .controls-content-flex {
+    display: flex;
+    flex-direction: row; // Equivalent to fxLayout="row"
+    justify-content: space-between; // Equivalent to fxLayoutAlign="space-between ..."
+    align-items: center; // Equivalent to fxLayoutAlign="... center"
+    gap: 20px; // Equivalent to fxLayoutGap="20px" (for modern browsers)
+  
+    // If you need to support older browsers that don't support `gap` well with flexbox:
+    // > *:not(:last-child) {
+    //   margin-right: 20px;
+    // }
+  }
+  
+  // New CSS for mat-form-field to grow
+  .flex-grow-item {
+    flex-grow: 1; // Equivalent to fxFlex or fxFlex="grow"
+    // You might also want:
+    // flex-shrink: 1;
+    // flex-basis: 0%; // to allow it to shrink from a zero base and grow
+  }
+  
+  .department-select-field {
+    // Any specific styles for the department select field itself
+    min-width: 200px; // Example: ensure it has a minimum width
+  }
+  
+  .add-button {
+    // Any specific styles for the add button, e.g., to prevent shrinking
+    flex-shrink: 0;
+  }
+  
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Adjust as needed */
+  }
+  
+  .info-message {
+    text-align: center;
+    padding: 20px;
+    color: grey;
+    font-style: italic;
+  }
+  
+  .table-container {
+    overflow: auto; // For responsiveness on small screens
+    margin-top: 1em;
+  }
+  
+  .full-width-table {
+    width: 100%;
+  }
+  
+  // For filter input if you use it
+  .filter-input {
+    width: 100%;
+    font-size: 1em;
+    padding: 8px;
+  }
+  
+  // Responsive adjustments using the new class
+  @media (max-width: 768px) {
+    .controls-content-flex { // Target the new class
+      flex-direction: column; // Stack items vertically
+      align-items: stretch;   // Make items take full width of the container
+  
+      // If using margins instead of gap for older browsers, adjust for column:
+      // > *:not(:last-child) {
+      //   margin-right: 0;
+      //   margin-bottom: 15px;
+      // }
+      // If using `gap`, it will automatically apply to the new flex-direction.
+      // You might want to adjust the gap value for vertical stacking if 20px is too much/little.
+      // gap: 15px;
+    }
+  
+    .department-select-field {
+      margin-bottom: 10px; // Add some space below the select when stacked, if not using gap or if gap is not enough
+    }
+
+  }
+  
+  // ... (previous styles) ...
+
+.department-select-field {
+    min-width: 200px; // Example
+  }
+  
+  // Style for the new cost center filter input
+  .cost-center-filter-field {
+    width: 100%; // Or a specific width like 300px
+    max-width: 400px; // Example max width
+    margin-bottom: 5px;
+    margin-top: 5px; // Add some space above if desired
+    display: block; // Make it block to control width and margins easily
+    margin-left: auto; // Optional: align to right if not full width
+    margin-right: auto; // Optional: center if not full width
+  }
+  
+  // Responsive adjustments for filter field (if needed)
+  @media (max-width: 768px) {
+    .cost-center-filter-field {
+      max-width: 100%; // Take full available width on smaller screens
+    }
+  }
+  
+  // ... (rest of the styles) ...

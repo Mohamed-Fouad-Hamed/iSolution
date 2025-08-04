@@ -11,13 +11,14 @@
    <!-- Filter Input -->
    <mat-form-field appearance="outline" class="filter-field">
     <mat-label>{{ 'DEPARTMENT.TREE.FILTER_LABEL' | translate }}</mat-label>
-    <input matInput [formControl]="filterControl" [placeholder]="'DEPARTMENT.TREE.FILTER_PLACEHOLDER' | translate">
-    <button mat-icon-button matSuffix *ngIf="filterControl.value" (click)="clearFilter()" [attr.aria-label]="'COMMON.BUTTONS.CLEAR_FILTER' | translate">
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-icon matSuffix *ngIf="!filterControl.value">search</mat-icon>
+      <input matInput [formControl]="filterControl" [placeholder]="'DEPARTMENT.TREE.FILTER_PLACEHOLDER' | translate">
+      <button mat-icon-button matSuffix *ngIf="filterControl.value" (click)="clearFilter()" [attr.aria-label]="'COMMON.BUTTONS.CLEAR_FILTER' | translate">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matSuffix *ngIf="!filterControl.value">search</mat-icon>
   </mat-form-field>
   
+  <div class="tree-container-area">
     <!-- Loading Indicator -->
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading" aria-label="Loading departments"></mat-progress-bar>
     <p *ngIf="isLoading" class="loading-text">{{ 'DEPARTMENT.TREE.LOADING_TREE' | translate }}</p>
@@ -38,41 +39,46 @@
        </button>
      </div>
   
-    <!-- Department Tree -->
-    <mat-tree *ngIf="!isLoading && !error && treeControl.dataNodes.length > 0"
-              [dataSource]="dataSource" [treeControl]="treeControl" class="department-mat-tree">
-  
-      <!-- Leaf Node Template -->
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button mat-icon-button disabled></button> <!-- Indent placeholder -->
-        <span class="node-content">
-          <span class="node-name">{{ node.name }}</span>
-          <span class="node-serial">({{ node.serialId }})</span>
-        </span>
-        <div class="node-actions">
-          <button mat-icon-button color="primary" [matTooltip]="'DEPARTMENT.TREE.ADD_CHILD' | translate" [attr.aria-label]="'DEPARTMENT.TREE.ADD_CHILD' | translate" (click)="addChildDepartment(node); $event.stopPropagation()"> <mat-icon>add_circle</mat-icon> </button>
-          <button mat-icon-button color="accent" [matTooltip]="'DEPARTMENT.TREE.EDIT_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.EDIT_NODE' | translate" (click)="editDepartment(node); $event.stopPropagation()"> <mat-icon>edit</mat-icon> </button>
-          <button mat-icon-button color="warn" [matTooltip]="'DEPARTMENT.TREE.DELETE_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.DELETE_NODE' | translate" (click)="confirmDeleteDepartment(node); $event.stopPropagation()"> <mat-icon>delete_outline</mat-icon> </button>
-        </div>
-      </mat-tree-node>
-  
-      <!-- Expandable Node Template -->
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-          <mat-icon class="mat-icon-rtl-mirror">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-          </mat-icon>
-        </button>
-         <span class="node-content">
-          <span class="node-name">{{ node.name }}</span>
-          <span class="node-serial">({{ node.serialId }})</span>
-        </span>
-        <div class="node-actions">
-           <button mat-icon-button color="primary" [matTooltip]="'DEPARTMENT.TREE.ADD_CHILD' | translate" [attr.aria-label]="'DEPARTMENT.TREE.ADD_CHILD' | translate" (click)="addChildDepartment(node); $event.stopPropagation()"> <mat-icon>add_circle</mat-icon> </button>
-          <button mat-icon-button color="accent" [matTooltip]="'DEPARTMENT.TREE.EDIT_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.EDIT_NODE' | translate" (click)="editDepartment(node); $event.stopPropagation()"> <mat-icon>edit</mat-icon> </button>
-          <button mat-icon-button color="warn" [matTooltip]="'DEPARTMENT.TREE.DELETE_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.DELETE_NODE' | translate" (click)="confirmDeleteDepartment(node); $event.stopPropagation()"> <mat-icon>delete_outline</mat-icon> </button>
-        </div>
-      </mat-tree-node>
-  
-    </mat-tree>
+     <div class="tree-container">
+      <!-- Department Tree -->
+          <mat-tree *ngIf="!isLoading && !error && treeControl.dataNodes.length > 0"
+            [dataSource]="dataSource" [treeControl]="treeControl" class="department-mat-tree">
+
+                <!-- Leaf Node Template -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button> <!-- Indent placeholder -->
+                <span class="node-content">
+                  <span class="node-name">{{ node.name }}</span>
+                  <span class="node-serial">({{ node.serialId }})</span>
+                </span>
+                <div class="node-actions">
+                  <button mat-icon-button color="primary" [matTooltip]="'DEPARTMENT.TREE.ADD_CHILD' | translate" [attr.aria-label]="'DEPARTMENT.TREE.ADD_CHILD' | translate" (click)="addChildDepartment(node); $event.stopPropagation()"> <mat-icon>add_circle</mat-icon> </button>
+                  <button mat-icon-button color="accent" [matTooltip]="'DEPARTMENT.TREE.EDIT_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.EDIT_NODE' | translate" (click)="editDepartment(node); $event.stopPropagation()"> <mat-icon>edit</mat-icon> </button>
+                  <button mat-icon-button color="warn" [matTooltip]="'DEPARTMENT.TREE.DELETE_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.DELETE_NODE' | translate" (click)="confirmDeleteDepartment(node); $event.stopPropagation()"> <mat-icon>delete_outline</mat-icon> </button>
+                </div>
+                </mat-tree-node>
+
+                <!-- Expandable Node Template -->
+                <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                  <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                  </mat-icon>
+                </button>
+                <span class="node-content">
+                  <span class="node-name">{{ node.name }}</span>
+                  <span class="node-serial">({{ node.serialId }})</span>
+                </span>
+                <div class="node-actions">
+                  <button mat-icon-button color="primary" [matTooltip]="'DEPARTMENT.TREE.ADD_CHILD' | translate" [attr.aria-label]="'DEPARTMENT.TREE.ADD_CHILD' | translate" (click)="addChildDepartment(node); $event.stopPropagation()"> <mat-icon>add_circle</mat-icon> </button>
+                  <button mat-icon-button color="accent" [matTooltip]="'DEPARTMENT.TREE.EDIT_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.EDIT_NODE' | translate" (click)="editDepartment(node); $event.stopPropagation()"> <mat-icon>edit</mat-icon> </button>
+                  <button mat-icon-button color="warn" [matTooltip]="'DEPARTMENT.TREE.DELETE_NODE' | translate" [attr.aria-label]="'DEPARTMENT.TREE.DELETE_NODE' | translate" (click)="confirmDeleteDepartment(node); $event.stopPropagation()"> <mat-icon>delete_outline</mat-icon> </button>
+                </div>
+                </mat-tree-node>
+
+                </mat-tree>
+          </div>
+
+    </div>
+    
   </div>

@@ -1,30 +1,54 @@
 
+:host {
+  display: block; // Good practice for root component
+  height: 100vh;  // Make app-root take full viewport height
+  overflow: hidden; // Prevent app-root itself from scrolling
+}
+
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full viewport height */
+  height: 100%; /* Inherit height from :host (full viewport height) */
+  // overflow: hidden; // Moved to :host
 }
 
 .header {
-  flex: 0 0 auto; /* Don't grow, don't shrink */
+  flex-shrink: 0; /* Don't shrink, fixed height (e.g., 56px or 64px) */
+  // background-color: #your-header-color; // Example
+  // color: white; // Example
+  z-index: 2; // Ensure header is above sidenav content if they overlap due to fixedInViewport
 }
 
-
 .sidenav-container {
-  flex: 1 1 auto; /* Take the remaining space */
-  overflow: auto; /* Enable scroll if needed */
-  padding: 5px;
+  flex-grow: 1; /* Sidenav container takes all remaining vertical space */
+  // overflow: auto; // REMOVE this - we want mat-sidenav-content to manage its scroll, not the whole container
+  // padding: 5px; // Consider removing or applying to .sidenav-content if needed
 }
 
 .sidenav {
   width: 240px;
- // border-right: none; // Optional
+  // border-right: none;
+  // box-shadow: 2px 0 5px rgba(0,0,0,0.1); // Example shadow
+  // Sidenav content might scroll independently if its list is very long.
+  // The fixedInViewport and fixedTopGap handle its positioning relative to the header.
+}
 
-  .sidenav-toolbar { // Target toolbar inside sidenav specifically
-    // This toolbar is simpler, might not need specific background overrides
-    // background: inherit; // Keep if needed
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1); // Optional separator shadow
-  }
+// Styles for the content area within the sidenav
+.sidenav-content {
+  display: flex; /* Enable flexbox for its children */
+  flex-direction: column; /* Stack children vertically (e.g., a top bar inside content, then main) */
+  overflow: hidden; /* Prevent .sidenav-content itself from scrolling; its child .content-wrapper will */
+  // padding: 16px; // Apply padding here if you want consistent padding around router-outlet content
+                    // Or apply it within specific routed components for more control.
+}
+
+.content-wrapper {
+  flex-grow: 1; /* This is CRITICAL: main content area takes all available space in .sidenav-content */
+  display: flex; /* Enable flexbox for router-outlet's rendered component */
+  flex-direction: column; /* Child component will stack its content vertically */
+  overflow: hidden; /* Prevent .content-wrapper from scrolling; router-outlet's child will */
+  // padding: 15px; // Add padding here if you want it around all routed components
+                    // OR, add padding directly in your CustomerListComponent's .customer-list-page
 }
 
 .spacer {
@@ -98,9 +122,4 @@
   }
 }
 
-.content-wrapper {
-  padding-inline-start: 5px;
-  padding-inline-end: 5px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
+

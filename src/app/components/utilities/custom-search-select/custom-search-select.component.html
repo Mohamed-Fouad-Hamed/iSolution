@@ -1,0 +1,39 @@
+<mat-form-field appearance="fill" class="custom-search-select">
+  <!-- Use the translate pipe for the label. The key is 'CUSTOM_SEARCH.ITEM_PLACEHOLDER' -->
+  <!-- The [label] attribute is bound to the result of the translation -->
+  <mat-label> {{ label }}</mat-label>
+
+  <input type="text"
+         matInput
+         [formControl]="searchControl"
+         [matAutocomplete]="auto">
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith.bind(this)" (optionSelected)="onOptionSelected($event.option.value)">
+    <!-- Translate the "Loading..." text -->
+    <mat-option *ngIf="isLoading" class="loading-option" disabled>
+      <mat-spinner diameter="20"></mat-spinner>
+      <span>{{ 'CUSTOM_SEARCH.LOADING' | translate }}</span>
+    </mat-option>
+    
+    <ng-container *ngIf="!isLoading">
+      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+        <!-- This part remains dynamic based on your data -->
+        {{ option.name }}
+      </mat-option>
+
+      <!-- The translate pipe can also take parameters -->
+      <mat-option *ngIf="canAddNew" (click)="addNewItem()" class="add-new-option">
+        <mat-icon>add_circle_outline</mat-icon>
+        <!-- Translate "Add" and display the dynamic search term -->
+        <span>{{ 'CUSTOM_SEARCH.ADD_ITEM' | translate }} "{{ lastSearchQuery }}"</span>
+      </mat-option>
+    </ng-container>
+
+    <mat-divider></mat-divider>
+    <!-- Translate the "Search More..." text -->
+    <mat-option (click)="openSearchMoreDialog()" class="search-more-option">
+      <mat-icon>search</mat-icon>
+      <span>{{ 'CUSTOM_SEARCH.SEARCH_MORE' | translate }}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

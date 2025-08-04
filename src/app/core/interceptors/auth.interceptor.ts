@@ -1,6 +1,7 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 export const authInterceptor: HttpInterceptorFn = (
     req: HttpRequest<unknown>,
@@ -12,13 +13,18 @@ export const authInterceptor: HttpInterceptorFn = (
 
   // --- Configuration: Define URLs that DON'T need the token ---
   const urlsToExclude = [
-    '/api/auth/login', // Don't add token to login request itself
-    '/api/auth/register' // Or registration etc.
+    '/login', // Don't add token to login request itself
+    '/register',
+    './assets/i18n/en.json',
+    './assets/i18n/ar.json' // Or registration etc.
     // Add other public API endpoints if needed
   ];
 
+
+  const isLocalAsset = req.url.includes('assets/i18n');
+
   // Check if the request URL matches any of the excluded URLs
-  const shouldExclude = urlsToExclude.some(url => req.url.includes(url));
+  const shouldExclude = urlsToExclude.some(url => req.url.endsWith(url)) || isLocalAsset;
 
   if (authToken && !shouldExclude) {
     // Clone the request and add the authorization header

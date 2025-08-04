@@ -1,27 +1,56 @@
 @use '@angular/material' as mat;
 
 :host {
-  display: block;
-  padding: clamp(5px, 1vw, 10px); // Responsive padding
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto; // Allow vertical scroll on small screens
 }
 
 .department-tree-container {
- // max-width: 1100px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100vh; // Cap height at viewport
+  overflow: hidden;
 }
 
 .tree-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
   flex-wrap: wrap;
   gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
 }
 
 .filter-field {
-  min-width: 40%;
-  max-width: 600px; // Or adjust as needed
+  flex-shrink: 0;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  // لو فيها input أو form field خليه يملى المساحة كويس
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+
+.tree-container-area {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 1rem 0.5rem 1rem;
+  min-height: 0; // 🔑 Allow shrinking when viewport is small
+}
+
+.tree-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0; // Important for flex children to allow shrinking
 }
 
 .loading-text {
@@ -31,16 +60,17 @@
   font-style: italic;
 }
 
-.error-message, .empty-state {
+.error-message,
+.empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 2rem 1rem;
   border: 1px dashed var(--mat-divider-color, rgba(0, 0, 0, 0.12));
-  border-radius: 8px; // Softer corners
+  border-radius: 8px;
   margin-top: 1.5rem;
-  background-color: var(--mat-toolbar-standard-background-color, #f5f5f5); // Theme background
+  background-color: var(--mat-toolbar-standard-background-color, #f5f5f5);
 
   mat-icon {
     font-size: 3rem;
@@ -48,9 +78,10 @@
     height: 3rem;
     margin-bottom: 1rem;
   }
-   .empty-icon {
-      color: var(--mat-gray-500, #9e9e9e);
-   }
+
+  .empty-icon {
+    color: var(--mat-gray-500, #9e9e9e);
+  }
 
   span {
     margin-bottom: 1rem;
@@ -60,102 +91,114 @@
 }
 
 .department-mat-tree {
-  .mat-tree-node, .mat-nested-tree-node {
-    display: flex;
-    align-items: center;
-    // Use logical properties for padding (better for RTL)
-    padding-block: 0.5rem;
-    min-height: 48px; // Material standard height
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  .mat-tree-node,
+  .mat-nested-tree-node {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     border-bottom: 1px solid var(--mat-divider-color, rgba(0, 0, 0, 0.12));
-    box-sizing: border-box; // Include padding/border in element's total width/height
 
     &:last-child {
-        border-bottom: none;
+      border-bottom: none;
     }
 
-    // Use theme variable for hover state layer
     &:hover {
-      // background-color: mat.get-theme-hover-color(mat.get-theme-background-palette(mat.$light-theme, background)); // Adjust theme if needed
-        .node-actions {
-            opacity: 1; // Show actions clearly on hover
-        }
+      .node-actions {
+        opacity: 1;
+      }
     }
   }
 
-   // Container for name and serial to control spacing
-   .node-content {
-       display: flex;
-       align-items: baseline; // Align name and serial nicely
-       flex-grow: 1;
-       margin-inline-start: 8px; // Space after icon/toggle
-       margin-inline-end: 8px; // Space before actions
-       overflow: hidden; // Prevent long names breaking layout
-   }
+  .node-content {
+    display: flex;
+    align-items: baseline;
+    flex-grow: 1;
+    margin-inline-start: 8px;
+    margin-inline-end: 8px;
+    overflow: hidden;
+  }
 
   .node-name {
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-inline-end: 0.5rem; // Space between name and serial
+    margin-inline-end: 0.5rem;
   }
 
   .node-serial {
     font-size: 0.8em;
     color: var(--mat-gray-600, #757575);
-    white-space: nowrap; // Prevent wrapping
+    white-space: nowrap;
   }
 
   .node-actions {
     display: flex;
     align-items: center;
-    flex-shrink: 0; // Prevent actions from shrinking
-    opacity: 0.2; // Hide actions until hover
+    flex-shrink: 0;
+    opacity: 0.2;
     transition: opacity 0.15s ease-in-out;
+    margin-inline-start: auto;
 
-    // Actions appear on hover/focus-within for accessibility
     *:hover > &,
-    *:focus-within > &, // Show on keyboard focus too
-    .cdk-keyboard-focused & { // Material's keyboard focus class
-        opacity: 1;
+    *:focus-within > &,
+    .cdk-keyboard-focused & {
+      opacity: 1;
     }
-
-    // Use logical margin for RTL compatibility
-    margin-inline-start: auto; // Pushes actions to the end
   }
 
-   // Smaller action buttons for tree view
-   .node-actions button.mat-mdc-icon-button {
-      width: 36px; // Adjust size as needed
-      height: 36px;
-      line-height: 36px;
-       .mat-icon {
-         font-size: 20px;
-         width: 20px;
-         height: 20px;
-      }
-   }
+  .node-actions button.mat-mdc-icon-button {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+
+    .mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 // --- Responsive Adjustments ---
 @media (max-width: 768px) {
-    .filter-field {
-      min-width: 100%;
+  
+  .filter-field {
+    width: 100%;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+
+    mat-form-field {
+      width: 100%;
     }
-    .department-mat-tree {
-        .node-serial {
-            display: none; // Hide less critical info on smaller screens
-        }
-    }
+  }
+
+  .department-mat-tree .node-serial {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
+ 
   .filter-field {
-    min-width: 100%;
+    width: 100%;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+
+    mat-form-field {
+      width: 100%;
+    }
   }
-  .department-mat-tree {
-      .node-actions {
-          opacity: 1; // Always show actions on likely touch devices
-      }
+
+  .department-mat-tree .node-actions {
+    opacity: 1;
+  }
+
+  :host {
+    overflow-y: auto; // Enable scroll on very small screens
   }
 }

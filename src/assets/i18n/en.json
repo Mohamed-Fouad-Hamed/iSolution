@@ -157,6 +157,38 @@
 		"errorCameraPermission": "Camera permission was denied. Please enable it in your browser settings.",
 		"errorCameraNotFound": "No camera found on this device."
 	  },
+	  "GENERAL": {
+		"SEARCH": "Search",
+		"NO_RESULTS": "No results found",
+		"NO_RESULTS_FOR": "No results for",
+		"LOADING": "Loading",
+		"CLEAR": "Clear",
+		"SAVE": "Save",
+		"CANCEL": "Cancel",
+		"DELETE": "Delete",
+		"EDIT": "Edit",
+		"ADD": "Add",
+		"ACTIONS": "Actions",
+		"NAME": "Name",
+		"START_DATE": "Start Date",
+		"END_DATE": "End Date",
+		"STATUS": "Status",
+		"OPEN": "Open",
+		"CLOSED": "Closed",
+		"CONFIRM_DELETE_TITLE": "Confirm Deletion",
+		"CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete '{{name}}'?",
+		"CONFIRM_ACTION_TITLE": "Confirm Action",
+		"SUCCESS_CREATED": "{{entity}} '{{name}}' created successfully.",
+		"SUCCESS_UPDATED": "{{entity}} '{{name}}' updated successfully.",
+		"SUCCESS_DELETED": "{{entity}} '{{name}}' deleted successfully.",
+		"SUCCESS_STATUS_CHANGED": "{{entity}} '{{name}}' status changed to {{status}}.",
+		"ERROR_GENERIC": "An error occurred. Please try again.",
+		"REQUIRED_FIELD": "This field is required.",
+		"MAX_LENGTH": "Must be less than {{length}} characters.",
+		"END_DATE_AFTER_START": "End date must be after start date.",
+		"DISMISS": "Dismiss",
+		"BY_NAME": "by name"
+	  },
 	   "COMMON": {
 		"ACTIONS": "Actions",
 		"NAME": "Name",
@@ -168,7 +200,29 @@
 		"SAVING": "Saving...",
 		"REQUIRED_FIELD": "{{fieldName}} is required.",
 		"INVALID_EMAIL": "Please enter a valid email address.",
+		"MAX_LENGTH":"Max length {{length}} characters",
+		"START_DATE":" Start Date ",
+		"END_DATE":"End Date",
+		"END_DATE_AFTER_START":"End Date After Start",
 		"SEARCH": "Search",
+		"SAVE": "Save",
+		"CANCEL": "Cancel",
+		"CLOSE": "Close",
+		"CONFIRM": "Confirm",
+		"DELETE": "Delete",
+		"EDIT": "Edit",
+		"ADD": "Add",
+		"REQUIRED": "Required",
+		"NO_DATA": "No data matching the filter criteria.",
+		"APPLY_FILTERS": "Apply Filters",
+		"CLEAR_FILTERS": "Clear Filters",
+		"PAGINATOR":{
+			"PREVIOUS":"Previous",
+			"NEXT":"Next",
+			"RANGE_EMPTY":"No Items",
+			"ITEMS_PER_PAGE":"Items per page",
+			"RANGE":"{{start}} – {{end}} of {{total}}"
+		},
 		"BUTTONS": {
 		  "CREATE": "Create",
 		  "UPDATE": "Update",
@@ -179,6 +233,7 @@
 		  "DISMISS": "Dismiss",
 		  "SAVE": "Save",
 		  "EDIT": "Edit",
+		  "CONFIRM":"Confirm",
 		  "REFRESH": "Refresh",
 		   "CLEAR_FILTER": "Clear filter",
 		   "CLEAR": "Clear"
@@ -201,9 +256,30 @@
 		"FIELD_READONLY_EDIT": "Cannot be changed after creation."
 	  },
 	  "COMPANY": {
-		"ENTITY": "Company",
-		"ENTITY_PLURAL": "Companies",
-		"TAX_ID": "Tax Identification Number",
+		 "ENTITY": "Company",
+		 "ENTITY_PLURAL": "Companies",
+		"COMPANY_NAME": "Company Name",
+		"ACCOUNT_TYPE": "Account Type",
+		"GENERAL_INFO": "General Information",
+		"BRANCHES": "Branches",
+		"ADDRESS": "Address",
+		"STREET_1": "Street 1",
+		"STREET_2": "Street 2...",
+		"CITY": "City",
+		"STATE": "State",
+		"ZIP_CODE": "Zip Code",
+		"COUNTRY": "Country",
+		"TAX_ID": "Tax ID",
+		"COMPANY_ID": "Company ID",
+		"CURRENCY": "Currency",
+		"PHONE": "Phone",
+		"EMAIL": "Email",
+		"WEBSITE": "Website",
+		"EMAIL_DOMAIN": "Email Domain",
+		"COLOR": "Color",
+		"SAVE": "Save",
+		"IF_NOT_APPLICABLE": "/ if not applicable"
+			,
 		"LIST": {
 		  "TITLE": "Manage Companies",
 		  "FILTER_LABEL": "Filter Companies",
@@ -239,7 +315,18 @@
 			"NOT_FOUND": "Company not found."
 		}
 	  },
+	   "ACTIONS": {
+			"NEW": "New",
+			"ACTIONS": "Actions",
+			"SAVE": "Save",
+			"DISCARD": "Discard",
+			"PRINT": "Print",
+			"EXPORT_PDF": "Export as PDF",
+			"DELETE": "Delete",
+			"SEARCH": "Search..."
+		},
 	  "DEPARTMENT": {
+		"TITLE":"Administrative structure",
 		"ENTITY": "Department",
 		"ENTITY_PLURAL": "Departments",
 		"TREE": {
@@ -337,9 +424,238 @@
 			"SAVE_FAILED": "Failed to save financial account.",
 			"DELETE_FAILED": "Failed to delete financial account."
 		}
-	  }
+	  },
+		"COST_CENTERS": {
+		  "TITLE": "Cost Centers Management",
+		  "ADD_NEW": "Add New Cost Center",
+		  "NO_DEPARTMENTS": "No departments found. Please add departments first.",
+		  "NO_COST_CENTERS_IN_DEPARTMENT": "No cost centers found for this department.",
+		  "EDIT_COST_CENTER": "Edit Cost Center",
+		  "CREATE_COST_CENTER": "Create Cost Center",
+		  "ADD_COST_CENTER":"Add new cost center",
+		  "SELECT_DEPARTMENT":"Select Department",
+		  "NO_COST_CENTERS_FOUND":"No found cost centers",
+		  "NO_DEPARTMENT_SELECTED":"No department Selected",
+		  "SEARCH_DEPARTMENT": "Search Department...",
+		  "FILTER_COST_CENTERS_BY_NAME": "Filter by name...",
+		  "FILTER_BY_NAME": "Filter cost centers by name",
+		  "NAME": "Name",
+		  "NAME_PLACEHOLDER": "Enter cost center name",
+		  "NAME_REQUIRED": "Name is required.",
+		  "NAME_MAX_LENGTH": "Name must be less than 255 characters.",
+		  "DESCRIPTION": "Description",
+		  "DESCRIPTION_PLACEHOLDER": "Enter description (optional)",
+		  "DESCRIPTION_MAX_LENGTH": "Description must be less than 1000 characters.",
+		  "DEPARTMENT": "Department",
+		  "DEPARTMENT_SELECT": "Select Department",
+		  "DEPARTMENT_REQUIRED": "Department is required.",
+		  "ACTIONS": "Actions",
+		  "EDIT": "Edit",
+		  "DELETE": "Delete",
+		  "SAVE": "Save",
+		  "CANCEL": "Cancel",
+		  "DELETE_CONFIRM_TITLE": "Confirm Deletion",
+		  "DELETE_CONFIRM_MESSAGE": "Are you sure you want to delete the cost center '{{name}}'?",
+		  "DELETE_CONFIRM_YES": "Yes, Delete",
+		  "DELETE_CONFIRM_NO": "No, Cancel",
+		  "SUCCESS_CREATED": "Cost center '{{name}}' created successfully.",
+		  "SUCCESS_UPDATED": "Cost center '{{name}}' updated successfully.",
+		  "SUCCESS_DELETED": "Cost center '{{name}}' deleted successfully.",
+		  "ERROR_FETCHING_DEPARTMENTS": "Error fetching departments.",
+		  "ERROR_FETCHING_COST_CENTERS": "Error fetching cost centers.",
+		  "ERROR_SAVING": "Error saving cost center.",
+		  "ERROR_DELETING": "Error deleting cost center."
+		},
+		  "FISCAL_CONFIG": {
+			"TITLE": "Fiscal Configuration",
+			"NO_ACCOUNT_ID_IN_STORAGE": "Account context not found. Please ensure you have selected an account or are properly logged in.",
+			"SELECT_ACCOUNT": "Select Account",
+			"NO_ACCOUNT_SELECTED": "Please select an account to manage fiscal years and periods.",
+			"FISCAL_YEARS": "Fiscal Years",
+			"ADD_FISCAL_YEAR": "Add Fiscal Year",
+			"EDIT_FISCAL_YEAR": "Edit Fiscal Year",
+			"NO_FISCAL_YEARS_FOUND": "No fiscal years found for the selected account.",
+			"SELECT_FISCAL_YEAR_PROMPT": "Select a fiscal year from the table above to manage its periods.",
+			"FISCAL_PERIODS": "Fiscal Periods",
+			"ADD_FISCAL_PERIOD": "Add Fiscal Period",
+			"EDIT_FISCAL_PERIOD": "Edit Fiscal Period",
+			"NO_FISCAL_PERIODS_FOUND": "No fiscal periods found for the selected fiscal year.",
+			"ACCOUNT": "Account",
+			"FISCAL_YEAR": "Fiscal Year",
+			"FISCAL_PERIOD": "Fiscal Period",
+			"SERIAL_ID": "Serial ID",
+			"CLOSE_YEAR_CONFIRM": "Are you sure you want to close fiscal year '{{name}}'? All open periods within this year might also be affected or restricted.",
+			"OPEN_YEAR_CONFIRM": "Are you sure you want to open fiscal year '{{name}}'?",
+			"CLOSE_PERIOD_CONFIRM": "Are you sure you want to close fiscal period '{{name}}'?",
+			"OPEN_PERIOD_CONFIRM": "Are you sure you want to open fiscal period '{{name}}'?",
+			"CANNOT_OPEN_PERIOD_IN_CLOSED_YEAR": "Cannot open period. The fiscal year '{{yearName}}' is closed. Please open the fiscal year first.",
+			"PERIOD_DATES_OUT_OF_RANGE": "Period dates must be within the selected fiscal year's date range.",
+			"CANNOT_EDIT_CLOSED_YEAR": "This fiscal year is closed and cannot be edited.",
+			"CANNOT_EDIT_CLOSED_PERIOD": "This fiscal period is closed and cannot be edited. The parent fiscal year might also be closed."
+	    },
+		"VALIDATION": {
+			"REQUIRED": "This field is required.",
+			"MAX_LENGTH": "Maximum length is {{length}} characters.",
+			"INVALID_EMAIL": "Please enter a valid email address.",
+			"INVALID_PHONE": "Please enter a valid phone number."
+		},
+		"CUSTOMER": {
+			"LIST": {
+			"TITLE": "Customers",
+			"ADD_BUTTON": "Add Customer"
+			},
+			"TABLE": {
+			"ARIA_LABEL": "Customer selection table",
+			"HEADER_CODE": "Customer Code",
+			"HEADER_NAME": "Name",
+			"HEADER_EMAIL": "Email",
+			"HEADER_PHONE": "Phone",
+			"HEADER_ADDRESS": "Address",
+			"HEADER_CREATED_AT": "Created On",
+			"HEADER_ACTIONS": "Actions",
+			"HEADER_STATUS":"Status"
+			},
+			"FILTER": {
+				"CUSTOMER_CODE": "Customer Code",
+				"NAME": "Name",
+				"EMAIL": "Email",
+				"PHONE": "Phone Number",         
+				"STATUS": "Status",             
+				"PLACEHOLDER_CODE": "Filter by code...",
+				"PLACEHOLDER_NAME": "Filter by name...",
+				"PLACEHOLDER_EMAIL": "Filter by email...",
+				"PLACEHOLDER_PHONE": "Filter by phone...", 
+				"STATUS_ALL": "All Statuses",    
+				"STATUS_ACTIVE": "Active",       
+				"STATUS_INACTIVE": "Inactive",
+				"TITLE": "Filter Customers", 
+				"ACTIVE": "Filters Active",
+				"CLICK_TO_EXPAND": "Click to show filters",
+				"ACTIVE_TOOLTIP": "Filters are currently applied to the list"
+				   
+			},
+			"STATUS": {
+				"ACTIVE": "Active",
+				"INACTIVE": "Inactive"
+			},
+			"DIALOG": {
+			"ADD_TITLE": "Add New Customer",
+			"EDIT_TITLE": "Edit Customer"
+			},
+			"FORM": {
+			"NAME": "Full Name",
+			"EMAIL": "Email Address",
+			"PHONE": "Phone Number",
+			"ADDRESS": "Address",
+			 "IS_ACTIVE": "Active"
+			},
+			"DELETE_CONFIRM": {
+				"TITLE": "Confirm Deletion",
+				"MESSAGE": "Are you sure you want to delete customer '{{name}}' (Code: {{code}})? This action cannot be undone."
+			},
+			"ACTIONS": {
+				"EDIT": "Edit customer",
+				"DELETE": "Delete customer"
+			},
+			"PAGINATOR": {
+			"ARIA_LABEL": "Select customer page"
+			},
+			"MESSAGES": {
+			"LOAD_ERROR": "Failed to load customers. Please try again later.",
+			"CREATE_SUCCESS": "Customer created successfully.",
+			"CREATE_ERROR": "Failed to create customer. Please check the details and try again.",
+			"UPDATE_SUCCESS": "Customer updated successfully.",
+			"UPDATE_ERROR": "Failed to update customer. Please try again.",
+			"DELETE_SUCCESS": "Customer deleted successfully.",
+			"DELETE_ERROR": "Failed to delete customer. Please try again.",
+			"ACCOUNT_ID_MISSING": "Cannot perform action: Account ID is missing."
+			}
+		},
+		"VENDOR": {
+			"LIST": {
+			"TITLE": "Vendors",
+			"ADD_BUTTON": "Add Vendor"
+			},
+			"TABLE": {
+			"ARIA_LABEL": "Vendor selection table",
+			"HEADER_CODE": "Vendor Code",
+			"HEADER_NAME": "Name",
+			"HEADER_EMAIL": "Email",
+			"HEADER_PHONE": "Phone",
+			"HEADER_ADDRESS": "Address",
+			"HEADER_CREATED_AT": "Created On",
+			"HEADER_ACTIONS": "Actions",
+			"HEADER_STATUS":"Status"
+			},
+			"FILTER": {
+				"VENDOR_CODE": "Vendor Code",
+				"NAME": "Name",
+				"EMAIL": "Email",
+				"PHONE": "Phone Number",         
+				"STATUS": "Status",             
+				"PLACEHOLDER_CODE": "Filter by code...",
+				"PLACEHOLDER_NAME": "Filter by name...",
+				"PLACEHOLDER_EMAIL": "Filter by email...",
+				"PLACEHOLDER_PHONE": "Filter by phone...", 
+				"STATUS_ALL": "All Statuses",    
+				"STATUS_ACTIVE": "Active",       
+				"STATUS_INACTIVE": "Inactive",
+				"TITLE": "Filter Vendors", 
+				"ACTIVE": "Filters Active",
+				"CLICK_TO_EXPAND": "Click to show filters",
+				"ACTIVE_TOOLTIP": "Filters are currently applied to the list"
+				   
+			},
+			"STATUS": {
+				"ACTIVE": "Active",
+				"INACTIVE": "Inactive"
+			},
+			"DIALOG": {
+			"ADD_TITLE": "Add New Vendor",
+			"EDIT_TITLE": "Edit Vendor"
+			},
+			"FORM": {
+			"NAME": "Full Name",
+			"EMAIL": "Email Address",
+			"PHONE": "Phone Number",
+			"ADDRESS": "Address",
+			 "IS_ACTIVE": "Active"
+			},
+			"DELETE_CONFIRM": {
+				"TITLE": "Confirm Deletion",
+				"MESSAGE": "Are you sure you want to delete Vendor '{{name}}' (Code: {{code}})? This action cannot be undone."
+			},
+			"ACTIONS": {
+				"EDIT": "Edit Vendor",
+				"DELETE": "Delete Vendor"
+			},
+			"PAGINATOR": {
+			"ARIA_LABEL": "Select Vendor page"
+			},
+			"MESSAGES": {
+			"LOAD_ERROR": "Failed to load Vendors. Please try again later.",
+			"CREATE_SUCCESS": "Vendor created successfully.",
+			"CREATE_ERROR": "Failed to create Vendor. Please check the details and try again.",
+			"UPDATE_SUCCESS": "Vendor updated successfully.",
+			"UPDATE_ERROR": "Failed to update Vendor. Please try again.",
+			"DELETE_SUCCESS": "Vendor deleted successfully.",
+			"DELETE_ERROR": "Failed to delete Vendor. Please try again.",
+			"ACCOUNT_ID_MISSING": "Cannot perform action: Account ID is missing."
+			}
+		},
+		"CUSTOM_SEARCH":{
+			"ADD_ITEM": "Add",
+			"SEARCH_MORE": "Search More...",
+			"LOADING": "Loading...",
+			"ITEM_PLACEHOLDER": "Item",
+		     "ARIA_LABEL":"Choose items table"
+		},
+		"SEARCH_DIALOG": {
+			"CLOSE_BUTTON_ARIA_LABEL": "Close dialog",
+			"SEARCH_PLACEHOLDER": "Search...",
+			"SEARCH_HINT": "Press Enter to search",
+			"NO_DATA_FOUND": "No data matching the filter",
+			"PAGINATOR_ARIA_LABEL": "Select page"
+		}		
 	
-
-
-
   }

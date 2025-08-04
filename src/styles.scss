@@ -96,3 +96,7 @@ mat-icon.material-icons-sharp { font-family: 'Material Icons Sharp' !important; 
     padding: 2rem;
   }
 }
+
+.no-pseudo-checkbox .mat-pseudo-checkbox {
+  display: none !important;
+}

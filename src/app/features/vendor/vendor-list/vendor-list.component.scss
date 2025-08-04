@@ -1,0 +1,391 @@
+@use '@angular/material' as mat; 
+
+:host {
+    display: block; // Ensures the component itself can be styled with height if needed
+    height: 100%;   // Make component take full height of its container (e.g., router-outlet parent)
+    overflow: hidden; // Prevent :host itself from scrolling if content fits
+  }
+  
+  .vendor-list-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%; // Full height of :host
+    padding: 16px; // Overall page padding
+    gap: 12px; // Reduced gap between major sections
+    box-sizing: border-box;
+  }
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; // Prevent header from shrinking
+  
+    h1 {
+      margin: 0; // Remove default h1 margin
+      font-size: 1.5em; // Adjust title size
+    }
+  }
+  
+  .filter-panel {
+    flex-shrink: 0; // Prevent panel from shrinking more than its content
+    box-shadow: none; // Use mat-elevation on .table-content-area instead for a cleaner look if desired
+    border: 1px solid rgba(0,0,0,.12); // Subtle border
+    border-radius: 4px;
+  
+    .mat-expansion-panel-header {
+      padding: 0 16px; // Reduce padding for a more compact header
+      height: 48px; // Standard Material height
+    }
+    .mat-expansion-panel-header-title {
+      font-weight: 500;
+    }
+    .mat-expansion-panel-header-description {
+      font-size: 0.85em;
+      color: rgba(0,0,0,0.6);
+    }
+  }
+  
+  .filter-active-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.9em;
+    mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+  }
+  
+  .filter-form-content {
+    display: flex;
+    flex-wrap: wrap; // Allow filters to wrap on smaller screens
+    gap: 12px;      // Space between filter fields
+    padding: 5px;  // Padding inside the expanded panel content
+  
+    .filter-field {
+      flex: 1 1 200px; // Grow, shrink, base size
+      min-width: 180px;
+      margin-bottom: 0; // Override default mat-form-field margin if any
+    }
+  
+    mat-form-field {
+        font-size: 14px;
+      }
+      
+      mat-form-field input {
+        font-size: 14px;
+      }
+      
+      mat-form-field .mat-form-field-label {
+        font-size: 14px;
+        color: #666;
+      }
+    
+    // Make mat-select take full width like other inputs if desired
+    // .mat-form-field-type-mat-select {
+    //   width: 100%;
+    // }
+  }
+  
+  .filter-actions {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    width: 100%; // Take full width for actions row
+    justify-content: flex-end; // Align buttons to the right
+    margin-top: 3px;
+  }
+  
+  
+  .table-content-area {
+    flex-grow: 1; // This is KEY: table area takes remaining vertical space
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // Important for containing the scrolling table
+    position: relative; // For spinner positioning
+    border-radius: 4px;
+  }
+  
+  .table-spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .table-container {
+    overflow: auto; // THIS ENABLES SCROLLING (both X and Y) FOR THE TABLE ITSELF
+    flex-grow: 1; // Table container grows within .table-content-area
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  // Sticky header for table
+  .mat-mdc-header-row { // For MDC based components
+    position: sticky;
+    top: 0;
+    z-index: 1; // Ensure header is above table content when scrolling
+    background-color: white; // Or your table header background
+  }
+  // For non-MDC components (legacy)
+  // .mat-header-row {
+  //   position: sticky;
+  //   top: 0;
+  //   z-index: 1;
+  //   background-color: white;
+  // }
+  
+  
+  .mat-mdc-paginator, // For MDC based components
+  .mat-paginator {    // For non-MDC
+    flex-shrink: 0; // Prevent paginator from shrinking
+    // border-top: 1px solid rgba(0,0,0,.12); // Optional separator line
+  }
+  
+  
+  .actions-cell {
+    text-align: right; // Align action buttons to the right
+    white-space: nowrap; // Prevent action buttons from wrapping
+  }
+  
+  // Status styling
+  .status-active {
+    color: green;
+     font-weight: bold;
+  }
+  .status-inactive {
+    color: red;
+     font-style: italic;
+  }
+  
+  // Adjustments for smaller screens if needed
+  @media (max-width: 768px) {
+    .page-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .add-vendor-button {
+      align-self: flex-end;
+    }
+  
+    .filter-form-content {
+      .filter-field {
+        flex-basis: calc(50% - 6px); // Two columns on smaller screens, adjust gap
+      }
+      .filter-field.full-width-small { // Add this class to fields you want full width on small
+          flex-basis: 100%;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+      .filter-form-content {
+          .filter-field {
+              flex-basis: 100%; // Single column on very small screens
+          }
+      }
+  }
+
+  // --- Filter Section Styling ---
+.filter-panel {
+    flex-shrink: 0;
+    box-shadow: none;
+    border: 1px solid var(--app-border-color); // Use CSS variable for border
+    border-radius: 4px;
+    background-color: var(--app-surface-color); // Use CSS variable for background
+  
+    .mat-expansion-panel-header {
+      padding: 0 16px;
+      height: 48px;
+      &:hover {
+        background-color: var(--app-hover-background-color); // Use CSS var for hover
+      }
+    }
+    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description {
+      font-size: 0.9rem; // Slightly smaller font for panel header elements
+      color: var(--app-secondary-text-color); // Use CSS var
+    }
+    .mat-expansion-panel-header-title {
+      font-weight: 500;
+      color: var(--app-text-color); // Main text color for title
+    }
+  }
+  
+  .filter-active-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem; // Smaller font
+    mat-icon {
+      font-size: 17px; // Adjusted icon size
+      height: 17px;
+      width: 17px;
+      color: mat.get-color-from-palette(mat.$pink-palette, A200); // Accent color for indicator (or use CSS var if defined)
+    }
+  }
+  
+  .filter-form-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; // Slightly reduced gap
+    padding: 12px 16px; // Reduced padding
+  
+    .filter-field {
+      flex: 1 1 180px; // Slightly adjusted base size
+      min-width: 160px;
+      margin-bottom: 0;
+  
+      // Reduce font size for mat-label and input within filter fields
+      // Target ::ng-deep with caution, or use ViewEncapsulation.None if absolutely necessary
+      // A better approach is often to adjust Material typography globally or use specific theme slots.
+      // For local override:
+      ::ng-deep .mat-mdc-form-field-infix { // MDC based components
+        font-size: 0.875rem; // e.g., 14px if base is 16px
+      }
+      ::ng-deep .mat-mdc-floating-label { // MDC based components
+        font-size: 0.875rem;
+      }
+      // For older (non-MDC) components:
+      // ::ng-deep .mat-form-field-infix {
+      //   font-size: 0.875rem;
+      // }
+      // ::ng-deep .mat-form-field-label {
+      //   font-size: 0.875rem;
+      // }
+  
+      // If using mat-select, its panel might also need font adjustment if it doesn't inherit
+      // This can be tricky as mat-select-panel is often in an overlay.
+    }
+  }
+  
+  .filter-actions {
+    // ... (existing styles)
+    button {
+      font-size: 0.875rem; // Smaller font for filter action buttons
+    }
+  }
+  
+  
+  // --- Table Content Area Styling ---
+  .table-content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    background-color: var(--app-surface-color); // Table area background
+    // Use Material elevation for the table area itself, or custom shadow
+    // @include mat.elevation(4); // If you want Material's standard elevation
+    box-shadow: 0 2px 4px -1px rgba(0,0,0, var(--app-elevation-umbra-opacity)), // Custom shadow using CSS vars
+                0 4px 5px 0px rgba(0,0,0, var(--app-elevation-penumbra-opacity)),
+                0 1px 10px 0px rgba(0,0,0, var(--app-elevation-ambient-opacity));
+  }
+  
+  // ... (table-spinner-overlay, table-container, table styles) ...
+  
+  // Sticky header for table - theme aware
+  .mat-mdc-header-row { // For MDC based components
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--app-surface-color); // Use surface color for header background
+    border-bottom: 1px solid var(--app-border-color); // Add a separator line
+  }
+  // For non-MDC components (legacy)
+  // .mat-header-row {
+  //   position: sticky;
+  //   top: 0;
+  //   z-index: 1;
+  //   background-color: var(--app-surface-color);
+  //   border-bottom: 1px solid var(--app-border-color);
+  // }
+  
+  // Table row hover effect - theme aware
+  .mat-mdc-row:hover .mat-mdc-cell, // MDC
+  .mat-row:hover .mat-cell {        // Legacy
+    background-color: var(--app-hover-background-color); // Use CSS var for hover
+  }
+  
+  // Table cell text color
+  .mat-mdc-cell, .mat-mdc-header-cell, // MDC
+  .mat-cell, .mat-header-cell {        // Legacy
+    color: var(--app-text-color);
+  }
+  .mat-mdc-header-cell, .mat-header-cell { // MDC & Legacy
+    font-weight: 500; // Make header text slightly bolder
+  }
+
+  .mat-row-no-data {
+    height: 200px;
+  }
+  
+  .mat-cell-no-data {
+    color: var(--app-text-color);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.1rem;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .mat-mdc-paginator, .mat-paginator {
+    flex-shrink: 0;
+    background-color: var(--app-surface-color); // Paginator background
+    color: var(--app-secondary-text-color);     // Paginator text color
+    border-top: 1px solid var(--app-border-color);
+  }
+  
+  // ... (actions-cell, status-active, status-inactive, media queries) ...
+  // Ensure these also use CSS variables if they need to change color in dark mode.
+  // Example:
+  .status-active {
+    color: #{mat.get-color-from-palette(mat.$green-palette, 500)}; // Green for light
+    // Dark mode specific for status-active if needed, or adjust CSS var
+  }
+  .status-inactive {
+    color: #{mat.get-color-from-palette(mat.$red-palette, 500)}; // Red for light
+  }
+  
+  // You might need to override specific icon colors if they don't pick up the theme correctly
+  .actions-cell {
+    button mat-icon {
+      color: var(--app-text-color); // Default
+    }
+    button[color="primary"] mat-icon {
+      // Primary color will be handled by Material theme
+    }
+    button[color="warn"] mat-icon {
+      // Warn color will be handled by Material theme
+    }
+  }
+  
+  
+  // Specific Dark Theme Overrides for Customer List (if needed beyond global .dark-theme)
+  // This demonstrates how to target elements specifically within this component
+  // when .dark-theme is active on the body.
+  :host-context(body.dark-theme) {
+    .filter-active-indicator mat-icon {
+      color: mat.get-color-from-palette(mat.$amber-palette, A200); // Use dark theme accent for indicator
+    }
+  
+    .status-active {
+      color: #{mat.get-color-from-palette(mat.$green-palette, 300)}; // Lighter green for dark
+    }
+    .status-inactive {
+      color: #{mat.get-color-from-palette(mat.$red-palette, 300)}; // Lighter red for dark
+    }
+  }

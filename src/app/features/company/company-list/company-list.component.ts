@@ -17,7 +17,7 @@ import { takeUntil, catchError, tap } from 'rxjs/operators';
 
 import { Company } from '../../../models/company';
 import { CompanyService } from '../../../core/services/companyservice';
-import { CompanyFormDialogComponent } from '../company-form-dialog/company-form-dialog.component'; // We'll create this next
+import { CompanyFormComponent } from '../company-form/company-form.component'; // We'll create this next
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component'; // Assume a shared confirmation dialog
 import { LayoutModule } from '@angular/cdk/layout'; // For responsive checks
 
@@ -127,10 +127,10 @@ export class CompanyListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private openDialog(companyData: Company | null = null): void {
-    const dialogRef = this.dialog.open(CompanyFormDialogComponent, {
-      width: '500px', // Responsive width
+    const dialogRef = this.dialog.open(CompanyFormComponent, {
+      width: '70%', // Responsive width
       maxWidth: '90vw', // Max width for smaller screens
-      disableClose: true, // Prevent closing by clicking outside or ESC
+      disableClose: false, // Prevent closing by clicking outside or ESC
       data: companyData // Pass existing company data for editing, or null for creating
     });
 
@@ -150,7 +150,7 @@ export class CompanyListComponent implements OnInit, AfterViewInit, OnDestroy {
   confirmAndDelete(company: Company): void {
     // Use a confirmation dialog before deleting (Best Practice)
     const titleDel : string =  this.traslateService.instant("COMMON.CONFIRMATION.DELETE_TITLE");
-    const msgDel : string =  this.traslateService.instant("COMMON.CONFIRMATION.DELETE_MESSAGE",{ itemName: company.name } );
+    const msgDel : string =  this.traslateService.instant("COMMON.CONFIRMATION.DELETE_MESSAGE",{ itemName: company.accountName } );
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '350px',

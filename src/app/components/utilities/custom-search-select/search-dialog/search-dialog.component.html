@@ -1,0 +1,57 @@
+<div class="search-dialog-container">
+  <!-- Dialog Title (receives pre-translated text) and translated Close Button -->
+  <h2 mat-dialog-title class="dialog-title">
+    {{ data.title }}
+    <button mat-icon-button (click)="onClose()" class="close-button" 
+            [attr.aria-label]="'SEARCH_DIALOG.CLOSE_BUTTON_ARIA_LABEL' | translate">
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
+
+  <mat-dialog-content>
+    <!-- Filter Bar with translated placeholder and hint -->
+    <div class="filter-bar">
+      <mat-form-field appearance="outline" class="search-input">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput [formControl]="searchControl" [placeholder]="'SEARCH_DIALOG.SEARCH_PLACEHOLDER' | translate">
+        <mat-hint>{{ 'SEARCH_DIALOG.SEARCH_HINT' | translate }}</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <!-- Table Container with Loading Spinner -->
+    <div class="table-container">
+      <div *ngIf="isLoading" class="spinner-overlay">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+      </div>
+
+      <!-- Generic Data Table -->
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+        <!-- Dynamic Column Generation (receives pre-translated headers) -->
+        <ng-container *ngFor="let col of data.columns" [matColumnDef]="col.key">
+          <th mat-header-cell *matHeaderCellDef>{{ col.header }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[col.key] }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)" class="data-row"></tr>
+
+        <!-- Translated row for when there is no matching data -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                {{ 'SEARCH_DIALOG.NO_DATA_FOUND' | translate }} "{{ searchControl.value }}"
+            </td>
+        </tr>
+      </table>
+    </div>
+  </mat-dialog-content>
+
+  <!-- Dialog Actions with translated Paginator -->
+  <mat-dialog-actions align="end">
+     <mat-paginator  [length]="totalItems"
+                     [pageSize]="10" 
+                     [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                     showFirstLastButtons
+                     [attr.aria-label]="'SEARCH_DIALOG.PAGINATOR_ARIA_LABEL' | translate">
+      </mat-paginator>
+  </mat-dialog-actions>
+</div>

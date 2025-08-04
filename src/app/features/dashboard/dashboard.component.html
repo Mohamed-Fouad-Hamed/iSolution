@@ -1,1 +1,82 @@
-<p>dashboard works!</p>
+<div class="container">
+  <h1>{{ title }}</h1>
+
+   <mat-card>
+    <mat-card-header>
+      <mat-card-title> Custom select </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- ngModel requires a "name" attribute -->
+      <app-custom-search-select
+        label="{{'CUSTOM_SEARCH.ITEM_PLACEHOLDER' | translate }}"
+        searchDialogTitle="Countries"
+        [(ngModel)]="selectedValue"
+        [apiService]="apiService"
+        [apiEndpoints]="apiEndpoints"
+      ></app-custom-search-select>
+    </mat-card-content>
+    <mat-card-footer class="form-value">
+      <h4>ngModel Value:</h4>
+      <pre>{{ selectedValue | json }}</pre>
+    </mat-card-footer>
+  </mat-card>
+
+  <!-- ================================== -->
+  <!--      REACTIVE FORM EXAMPLE         -->
+  <!-- ================================== -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Reactive Form Example</mat-card-title>
+    </mat-card-header>
+    <mat-card-content [formGroup]="reactiveForm">
+      <app-multi-select
+        formControlName="selectedUsers"
+        [options]="allUsers"
+        label="Select Users"
+        placeholder="Search for a user..."
+        optionsValueField="id"
+        optionsDisplayField="name"
+      ></app-multi-select>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submitReactiveForm()">Submit</button>
+      <button mat-stroked-button (click)="toggleDisable()">Toggle Disabled</button>
+      <button mat-stroked-button (click)="resetReactiveForm()">Reset</button>
+    </mat-card-actions>
+    <mat-card-footer class="form-value">
+      <h4>Form Control Value:</h4>
+      <pre>{{ reactiveForm.get('selectedUsers')?.value | json }}</pre>
+    </mat-card-footer>
+  </mat-card>
+
+  <mat-divider></mat-divider>
+
+  <!-- ================================== -->
+  <!--    TEMPLATE-DRIVEN FORM EXAMPLE    -->
+  <!-- ================================== -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Template-Driven Form Example</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- ngModel requires a "name" attribute -->
+      <app-multi-select
+        [(ngModel)]="templateDrivenSelection"
+        name="templateUsers"
+        [options]="allUsers"
+        label="Select Users (Template-Driven)"
+        placeholder="Find team members..."
+        optionsValueField="id"
+        optionsDisplayField="name"
+      ></app-multi-select>
+    </mat-card-content>
+    <mat-card-footer class="form-value">
+      <h4>ngModel Value:</h4>
+      <pre>{{ templateDrivenSelection | json }}</pre>
+    </mat-card-footer>
+  </mat-card>
+
+
+  
+
+</div>

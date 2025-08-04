@@ -139,25 +139,33 @@ export class DepartmentTreeComponent implements OnInit, OnDestroy {
           next: () => { // 'treeData' is no longer directly used here
               // Apply current filter (if any) or show full tree
               this.applyFilter(this.filterControl.value || '');
+
+              setTimeout(() => {
+                this.expandAllNodes();
+              },1500);
+
           },
           error: err => {
               // ... (existing error handling) ...
           }
       });
+  }  
+
+  private expandAllNodes(): void {
+    this.treeControl.dataNodes.forEach(node => this.treeControl.expand(node));
   }
 
     // --- Filter Logic ---
     applyFilter(filterText: string): void {
       const normalizedFilter = filterText.trim().toLowerCase();
-  
+
       if (!normalizedFilter) {
-        // No filter, show the original full tree
         this.dataSource.data = this.originalTreeData;
         this.cdr.markForCheck();
+        queueMicrotask(() => this.expandAllNodes()); // Expand full tree
         return;
       }
-  
-      // 1. Filter the flat list to find direct matches
+    
       const directlyMatchedSerialIds = new Set<string>();
       this.flatDepartments.forEach(dept => {
         if (dept.name.toLowerCase().includes(normalizedFilter) ||
@@ -165,38 +173,30 @@ export class DepartmentTreeComponent implements OnInit, OnDestroy {
           directlyMatchedSerialIds.add(dept.serialId);
         }
       });
-  
-      // 2. Include ancestors of matched nodes to maintain tree structure
+    
       const nodesToIncludeSerialIds = new Set<string>(directlyMatchedSerialIds);
       const departmentMap = new Map(this.flatDepartments.map(d => [d.serialId, d]));
-  
+    
       directlyMatchedSerialIds.forEach(serialId => {
         let current = departmentMap.get(serialId);
-        while (current && current.parentSerialId) {
+        while (current?.parentSerialId) {
           nodesToIncludeSerialIds.add(current.parentSerialId);
           current = departmentMap.get(current.parentSerialId);
-          if (!current) break; // Safety break
         }
       });
-  
-      // 3. Create a new flat list containing only the nodes to include
+    
       const filteredFlatList = this.flatDepartments.filter(dept =>
         nodesToIncludeSerialIds.has(dept.serialId)
       );
-  
-      // 4. Rebuild the tree with the filtered flat list
+    
       const filteredTreeData = this.buildTree(filteredFlatList);
       this.dataSource.data = filteredTreeData;
-  
-      // 5. Expand nodes that are direct matches or ancestors of direct matches
-      if (filteredTreeData.length > 0) {
-          this.allNodesMap.clear();
-          this.treeControl.dataNodes.forEach(node => this.allNodesMap.set(node.serialId, node)); // Rebuild map
-          this.expandFilteredNodes(this.treeControl.dataNodes, directlyMatchedSerialIds);
-      }
+    
+      queueMicrotask(() => this.expandAllNodes());
       this.cdr.markForCheck();
     }
-  
+
+
     private expandFilteredNodes(nodes: DepartmentFlatNode[], directlyMatchedSerialIds: Set<string>): void {
       nodes.forEach(node => {
         let shouldExpand = directlyMatchedSerialIds.has(node.serialId); // Direct match
@@ -280,6 +280,7 @@ export class DepartmentTreeComponent implements OnInit, OnDestroy {
 
    // --- Parent Filtering Logic ---
    private getAllDescendantSerialIds(targetSerialId: string, allDeptsMap: Map<string, Department>): Set<string> {
+        
         const descendantIds = new Set<string>();
         const queue: string[] = [];
 
@@ -416,28 +417,16 @@ export class DepartmentTreeComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe(result => {
-        // Check if the dialog returned a DepartmentDto object (indicating successful save)
-        // or true (if the dialog just signals success without returning data - less ideal here)
-        if (result && typeof result === 'object' && result.serial_id) { // Check if it's the saved object
+
+        if (result && typeof result === 'object' && result.serial_id) { 
             const savedDepartment = result as DepartmentDto;
             const messageKey = dialogData.isEditMode ? 'DEPARTMENT.SUCCESS.UPDATED' : 'DEPARTMENT.SUCCESS.CREATED';
             this.snackBar.open(
                 this.translate.instant(messageKey),
                 this.translate.instant('COMMON.BUTTONS.OK'), { duration: 3000 }
             );
-             // ** Simply reload the tree - this is the easiest way **
-             // It will fetch the complete list including the new department with its generated serial_id.
-            this.loadDepartments();
 
-            // --- Optional: More granular update (more complex) ---
-            // If you wanted to avoid a full reload, you would:
-            // 1. Find the parent node in the current tree data.
-            // 2. Add the 'savedDepartment' to the parent's children array OR to the root list.
-            // 3. Update the flatDepartments list.
-            // 4. Re-assign dataSource.data = this.dataSource.data to trigger tree update.
-            // This is significantly more complex to manage correctly, especially with sorting.
-            // Reloading is often simpler and sufficient unless performance is critical.
-            // console.log('Created/Updated Department:', savedDepartment); // Log the returned data
+            this.loadDepartments();
 
         } else if (result === true) {
              // If dialog only returns 'true' on success (less info)
@@ -451,4 +440,9 @@ export class DepartmentTreeComponent implements OnInit, OnDestroy {
         // If result is null/false/undefined, the dialog was cancelled - do nothing.
     });
 }
+
+    trackByFn(index: number, node: DepartmentFlatNode) {
+      return node.serialId; // or node.serialId
+    }
+
 }

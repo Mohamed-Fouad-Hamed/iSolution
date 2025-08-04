@@ -1,0 +1,122 @@
+.page-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .page-title {
+    margin-bottom: 24px;
+    color: var(--mat-toolbar-standard-text-color, rgba(0, 0, 0, 0.87)); // Use theme color if possible
+    font-size: 24px;
+  }
+  
+  .error-message-prominent {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2em;
+      color: var(--mat-warn-color, red); // Use theme color
+      border: 1px solid var(--mat-warn-color, red);
+      border-radius: 4px;
+      background-color: rgba(255, 0, 0, 0.05);
+  }
+  
+  
+  .table-card {
+    margin-bottom: 24px;
+  }
+  
+  .table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  
+    .filter-field {
+      flex-grow: 1;
+      min-width: 250px; /* Ensure it doesn't get too small */
+    }
+  }
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+  }
+  
+  .info-message {
+    text-align: center;
+    padding: 20px;
+    color: grey;
+    font-style: italic;
+  }
+  
+  .selection-prompt {
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+  }
+  
+  .table-responsive-wrapper {
+    overflow-x: auto; /* Allows horizontal scrolling for the table on small screens */
+  }
+  
+  .data-table {
+    width: 100%;
+  }
+  
+  .clickable-row {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04); // Standard Material hover
+    }
+  }
+  
+  .selected-row {
+    background-color: var(--mat-selected-row-background-color, rgba(63, 81, 181, 0.1)); // Use theme color
+    font-weight: bold;
+  }
+  
+  .status-open {
+    color: var(--mat-primary-color, green); // Use theme color
+    font-weight: 500;
+  }
+  .status-closed {
+    color: var(--mat-warn-color, red); // Use theme color
+    font-weight: 500;
+  }
+  
+  .parent-status {
+      font-size: 0.8em;
+      margin-left: 8px;
+      font-style: italic;
+  }
+  
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .table-controls {
+      flex-direction: column;
+      align-items: stretch; /* Make filter and button full width */
+      .filter-field {
+          width: 100%;
+      }
+    }
+  }
+  
+  // Snackbar custom styles (add these to your global styles.scss or a theme file)
+  // .snackbar-success {
+  //   background-color: #4CAF50; // Green
+  //   color: white;
+  // }
+  // .snackbar-error {
+  //   background-color: #F44336; // Red
+  //   color: white;
+  // }
+  // .snackbar-warn {
+  //   background-color: #FF9800; // Orange
+  //   color: black;
+  // }

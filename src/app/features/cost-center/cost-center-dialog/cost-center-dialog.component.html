@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>{{ dialogTitle | translate }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="costCenterForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'COST_CENTERS.NAME' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'COST_CENTERS.NAME_PLACEHOLDER' | translate" required>
+      <mat-error *ngIf="name?.hasError('required')">{{ 'COST_CENTERS.NAME_REQUIRED' | translate }}</mat-error>
+      <mat-error *ngIf="name?.hasError('maxlength')">{{ 'COST_CENTERS.NAME_MAX_LENGTH' | translate }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'COST_CENTERS.DESCRIPTION' | translate }}</mat-label>
+      <textarea matInput formControlName="description" [placeholder]="'COST_CENTERS.DESCRIPTION_PLACEHOLDER' | translate" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+      <mat-error *ngIf="description?.hasError('maxlength')">{{ 'COST_CENTERS.DESCRIPTION_MAX_LENGTH' | translate }}</mat-error>
+    </mat-form-field>
+
+    <!-- Department ID is typically not user-editable here but required by DTO -->
+    <!-- It's passed in via dialog data. You might hide it or show it as read-only -->
+    <!-- <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'COST_CENTERS.DEPARTMENT' | translate }} ID</mat-label>
+      <input matInput formControlName="departmentId" readonly>
+      <mat-error *ngIf="departmentId?.hasError('required')">{{ 'COST_CENTERS.DEPARTMENT_ID_REQUIRED' | translate }}</mat-error>
+    </mat-form-field> -->
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onCancel()">{{ 'COST_CENTERS.CANCEL' | translate }}</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading || costCenterForm.invalid">
+    <mat-spinner *ngIf="isLoading" diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+    {{ 'COST_CENTERS.SAVE' | translate }}
+  </button>
+</mat-dialog-actions>

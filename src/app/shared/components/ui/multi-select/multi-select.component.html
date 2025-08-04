@@ -1,0 +1,43 @@
+<!-- The container and form field are the same -->
+<div class="multi-select-container">
+  <mat-form-field appearance="fill" class="full-w">
+    <mat-label>{{ label }}</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Selected items list">
+      <!-- ngFor for chips is the same -->
+      <mat-chip-row *ngFor="let item of value; trackBy: trackByFn" (removed)="remove(item)">
+        {{ item[optionsDisplayField] }}
+        <button matChipRemove [attr.aria-label]="'Remove ' + item[optionsDisplayField]">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      
+      <input
+        #searchInput
+        type="text"
+        [placeholder]="placeholder"
+        [formControl]="searchControl"
+        [matChipInputFor]="chipGrid"
+        [matAutocomplete]="auto"
+      />
+    </mat-chip-grid>
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="onOptionSelected($event)"
+      aria-orientation="vertical"
+    >
+      <!--
+        - Loop over the sortedOptions$ observable now.
+        - The rest of the mat-option is the same.
+      -->
+      <mat-option
+        *ngFor="let item of sortedOptions$ | async; trackBy: trackByFn"
+        [value]="item"
+      >
+        <mat-checkbox [checked]="isSelected(item)" class="mat-option-checkbox">
+          {{ item[optionsDisplayField] }}
+        </mat-checkbox>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

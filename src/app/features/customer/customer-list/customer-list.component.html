@@ -1,0 +1,153 @@
+<div class="customer-list-page"> <!-- Overall page container -->
+
+    <header class="page-header">
+      <h1>{{ 'CUSTOMER.LIST.TITLE' | translate }}</h1>
+      <button mat-raised-button color="primary" (click)="addCustomer()" class="add-customer-button">
+        <mat-icon>add</mat-icon>
+        {{ 'CUSTOMER.LIST.ADD_BUTTON' | translate }}
+      </button>
+    </header>
+  
+    <!-- Filter Section using Expansion Panel -->
+    <mat-expansion-panel class="filter-panel" [expanded]="isFilterPanelExpanded" (opened)="isFilterPanelExpanded = true" (closed)="isFilterPanelExpanded = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'CUSTOMER.FILTER.TITLE' | translate }}
+        </mat-panel-title>
+        <mat-panel-description fxLayoutAlign="end center">
+          <span *ngIf="areFiltersActive()" class="filter-active-indicator" matTooltip="{{ 'CUSTOMER.FILTER.ACTIVE_TOOLTIP' | translate }}">
+            <mat-icon color="accent">filter_list</mat-icon>
+            {{ 'CUSTOMER.FILTER.ACTIVE' | translate }}
+          </span>
+          <span *ngIf="!areFiltersActive()">
+            {{ 'CUSTOMER.FILTER.CLICK_TO_EXPAND' | translate }}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <form [formGroup]="filterForm" class="filter-form-content">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ 'CUSTOMER.FILTER.CUSTOMER_CODE' | translate }}</mat-label>
+          <input matInput formControlName="customerCode" placeholder="{{ 'CUSTOMER.FILTER.PLACEHOLDER_CODE' | translate }}">
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ 'CUSTOMER.FILTER.NAME' | translate }}</mat-label>
+          <input matInput formControlName="name" placeholder="{{ 'CUSTOMER.FILTER.PLACEHOLDER_NAME' | translate }}">
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ 'CUSTOMER.FILTER.EMAIL' | translate }}</mat-label>
+          <input matInput formControlName="email" placeholder="{{ 'CUSTOMER.FILTER.PLACEHOLDER_EMAIL' | translate }}">
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ 'CUSTOMER.FILTER.PHONE' | translate }}</mat-label>
+          <input matInput formControlName="phone" placeholder="{{ 'CUSTOMER.FILTER.PLACEHOLDER_PHONE' | translate }}">
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>{{ 'CUSTOMER.FILTER.STATUS' | translate }}</mat-label>
+          <mat-select formControlName="isActive">
+            <mat-option *ngFor="let status of statusFilterOptions" [value]="status.value">
+              {{ status.viewValueKey | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <div class="filter-actions">
+          <button mat-stroked-button (click)="clearFilters()" type="button">
+            <mat-icon>clear_all</mat-icon>
+            {{ 'COMMON.CLEAR_FILTERS' | translate }}
+          </button>
+          <!-- Optional: Manual Apply Button if not using auto-apply on change -->
+          <!-- <button mat-flat-button color="primary" (click)="applyFiltersManually()" type="button">
+            <mat-icon>search</mat-icon>
+            {{ 'COMMON.APPLY_FILTERS' | translate }}
+          </button> -->
+        </div>
+      </form>
+    </mat-expansion-panel>
+  
+    <!-- Main Content Area (Table) -->
+    <div class="table-content-area mat-elevation-z4">
+      <!-- Loading Spinner Overlay for Table -->
+      <div *ngIf="isLoading" class="table-spinner-overlay">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+      </div>
+  
+      <div class="table-container"> <!-- This div will handle table scrolling -->
+        <table mat-table [dataSource]="dataSource" matSort attr.aria-label="{{ 'CUSTOMER.TABLE.ARIA_LABEL' | translate }}">
+          <!-- Customer Code Column -->
+          <ng-container matColumnDef="customerCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'CUSTOMER.TABLE.HEADER_CODE' | translate }}</th>
+            <td mat-cell *matCellDef="let customer">{{ customer.customerCode }}</td>
+          </ng-container>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'CUSTOMER.TABLE.HEADER_NAME' | translate }}</th>
+            <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
+          </ng-container>
+  
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'CUSTOMER.TABLE.HEADER_EMAIL' | translate }}</th>
+            <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+          </ng-container>
+  
+          <!-- Phone Column -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="phone">{{ 'CUSTOMER.TABLE.HEADER_PHONE' | translate }}</th>
+            <td mat-cell *matCellDef="let customer">{{ customer.phone || '-' }}</td>
+          </ng-container>
+  
+          <!-- IsActive Column -->
+          <ng-container matColumnDef="isActive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="isActive">{{ 'CUSTOMER.TABLE.HEADER_STATUS' | translate }}</th>
+            <td mat-cell *matCellDef="let customer">
+              <span [ngClass]="{'status-active': customer.isActive, 'status-inactive': !customer.isActive}">
+                {{ (customer.isActive ? 'CUSTOMER.STATUS.ACTIVE' : 'CUSTOMER.STATUS.INACTIVE') | translate }}
+              </span>
+            </td>
+          </ng-container>
+  
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>{{ 'CUSTOMER.TABLE.HEADER_ACTIONS' | translate }}</th>
+            <td mat-cell *matCellDef="let customer" class="actions-cell">
+              <button mat-icon-button color="primary" (click)="editCustomer(customer)"
+                      attr.aria-label="{{ 'CUSTOMER.ACTIONS.EDIT' | translate }}" matTooltip="{{'CUSTOMER.ACTIONS.EDIT' | translate}}">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteCustomer(customer)"
+                      attr.aria-label="{{ 'CUSTOMER.ACTIONS.DELETE' | translate }}" matTooltip="{{'CUSTOMER.ACTIONS.DELETE' | translate}}">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr> <!-- Sticky header -->
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+
+          <tr class="mat-row-no-data"  *matNoDataRow>
+            <td class="mat-cell-no-data" [attr.colspan]="displayedColumns.length">
+              <ng-container *ngIf="!isLoading">
+                {{ 'COMMON.NO_DATA' | translate }}
+              </ng-container>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+  
+      <mat-paginator [length]="totalElements"
+                     [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                     showFirstLastButtons
+                     attr.aria-label="{{ 'VENDOR.PAGINATOR.ARIA_LABEL' | translate }}">
+      </mat-paginator>
+      
+    </div>
+  
+  </div>

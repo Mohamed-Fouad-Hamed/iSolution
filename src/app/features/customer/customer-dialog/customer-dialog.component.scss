@@ -1,0 +1,15 @@
+.customer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+// Add some spacing for the toggle/checkbox to align with form fields
+.form-field-like-spacing {
+  padding-top: 8px; // Adjust as needed to match mat-form-field spacing
+  padding-bottom: 12px; // Adjust as needed
+}

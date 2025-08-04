@@ -79,7 +79,7 @@ export class DepartmentDialogComponent implements OnInit {
 
     this.departmentForm = this.fb.group({
       name: [this.departmentBeingEdited?.name || '', Validators.required],
-      serialId: [this.departmentBeingEdited?.serialId || '', Validators.required], // Assuming serialId is also part of Department
+      serialId: [this.departmentBeingEdited?.serialId || ''], // Assuming serialId is also part of Department
       parentSerialId: [initialParentSerialId || null],
       description: [this.departmentBeingEdited?.description || '']
     });

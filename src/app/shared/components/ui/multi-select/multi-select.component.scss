@@ -1,0 +1,23 @@
+// Use :host for proper component style encapsulation.
+:host {
+  display: block; // Ensures the host element takes up space as expected.
+
+  .full-w {
+    width: 100%;
+  }
+
+  // Prevents the checkbox from adding extra space in the mat-option
+  .mat-option-checkbox {
+    margin-right: 8px;
+  }
+}
+
+// --- NEW STYLE RULE ---
+// This targets the pseudo-checkbox that Angular Material adds to mat-option
+// and hides it, so it doesn't overlap or appear next to our real mat-checkbox.
+// Using ::ng-deep is necessary here because the pseudo-checkbox is created
+// inside the mat-option's encapsulated view, which our component's styles
+// can't normally reach.
+::ng-deep .mat-pseudo-checkbox {
+  display: none !important;
+}

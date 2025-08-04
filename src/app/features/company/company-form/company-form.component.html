@@ -1,0 +1,86 @@
+<div class="company-container" >
+  <!-- Toolbar -->
+  <mat-toolbar class="action-toolbar">
+    <div class="main-actions">
+      <button mat-flat-button color="primary" (click)="onSave()">
+        <mat-icon>save</mat-icon>
+        <span>{{ 'ACTIONS.SAVE' | translate }}</span>
+      </button>
+      <button mat-stroked-button (click)="onNew()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>{{ 'ACTIONS.NEW' | translate }}</span>
+      </button>
+      <button mat-stroked-button (click)="onDiscard()">
+        <mat-icon>cancel</mat-icon>
+        <span>{{ 'ACTIONS.DISCARD' | translate }}</span>
+      </button>
+    </div>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="actionsMenu" [matTooltip]="'ACTIONS.ACTIONS' | translate">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #actionsMenu="matMenu">
+      <button mat-menu-item><mat-icon>print</mat-icon><span>{{ 'ACTIONS.PRINT' | translate }}</span></button>
+      <button mat-menu-item><mat-icon>delete</mat-icon><span>{{ 'ACTIONS.DELETE' | translate }}</span></button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- Header Section -->
+  <header class="company-header">
+    <div class="logo-container" (click)="triggerFileInput()">
+      <img [src]="companyForm.get('accountLogo')?.value" alt="Company Logo" class="company-logo">
+      <input type="file" hidden id="logo-input" (change)="onFileSelected($event)">
+    </div>
+    <div class="company-title">
+      <small>{{ 'COMPANY.COMPANY_NAME' | translate }}</small>
+      <h1>{{ companyForm.get('accountName')?.value }} ({{ companyForm.get('branchName')?.value }})</h1>
+    </div>
+  </header>
+
+  <!-- Tabs Section -->
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab [label]="'COMPANY.GENERAL_INFO' | translate">
+      <form [formGroup]="companyForm" class="info-form custom-form-style">
+        <div class="form-grid">
+          <!-- Left Column -->
+          <div class="form-column">
+            <!-- Address Group -->
+            <div class="form-group">
+              <label class="group-label">{{ 'COMPANY.ADDRESS' | translate }}</label>
+              <div class="group-content">
+                <input matInput formControlName="street1" [placeholder]="'COMPANY.STREET_1' | translate">
+                <input matInput formControlName="street2" [placeholder]="'COMPANY.STREET_2' | translate">
+                <div class="inline-fields">
+                  <input matInput formControlName="city" [placeholder]="'COMPANY.CITY' | translate" class="city">
+                  <mat-select formControlName="stateId" (openedChange)="onStatesOpened($event)">
+                    <!-- Select Panel Header -->
+                    <div class="select-panel-header" (click)="$event.stopPropagation()">
+                      <mat-spinner *ngIf="isLoading.states" [diameter]="20"></mat-spinner>
+                      <mat-form-field class="search-input-wrapper" *ngIf="!isLoading.states">
+                        <mat-icon matPrefix>search</mat-icon>
+                        <input matInput [formControl]="stateSearchCtrl" [placeholder]="'COMPANY.SEARCH' | translate">
+                      </mat-form-field>
+                    </div>
+                    <!-- Options -->
+                    <ng-container *ngIf="!isLoading.states">
+                       <mat-option *ngFor="let item of filteredStates$ | async" [value]="item.id">{{ item.name }}</mat-option>
+                       <mat-option *ngIf="(filteredStates$ | async)?.length === 0" disabled>{{ 'COMPANY.NO_RESULTS' | translate }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                  <input matInput formControlName="zipCode" [placeholder]="'COMPANY.ZIP_CODE' | translate">
+                </div>
+                <mat-select formControlName="countryId" (openedChange)="onCountriesOpened($event)">
+                   <!-- Replicated Select Panel -->
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <!-- Right Column -->
+          <div class="form-column">
+             <!-- All other fields using the same input and select patterns -->
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -64,9 +64,11 @@ export class LoginComponent {
   // --- Methods ---
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      this.focusFirstInvalidField(); // Best practice: focus first error
-      return;
+     
+       this.loginForm.markAllAsTouched();
+       this.focusFirstInvalidField(); // Best practice: focus first error
+       return;
+       
     }
 
     this.isLoading.set(true);

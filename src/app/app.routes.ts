@@ -64,12 +64,36 @@ export const routes: Routes = [
     title: 'Manage Departments' // Optional: Set page title
   },
   {
+    path: 'cost-centers', // URL path
+    loadComponent: () => import('./features/cost-center/cost-center-list/cost-center-list.component')
+                         .then(m => m.CostCenterListComponent), canActivate:[authGuard],
+    title: 'Manage Cost Centers' // Optional: Set page title
+  },
+  {
     path: 'financial-account', // URL path
     loadComponent: () => import('./features/financial-account/financial-account-manager/financial-account-manager.component')
                          .then(m => m.FinancialAccountManagerComponent), canActivate:[authGuard],
     title: 'Manage Departments' // Optional: Set page title
   },
-  // Default route: Redirect to dashboard if logged in, otherwise to login
+  {
+    path: 'fiscal-setup', // URL path
+    loadComponent: () => import('./features/fiscal-years/fiscal-configuration/fiscal-configuration.component')
+                         .then(m => m.FiscalConfigurationComponent), canActivate:[authGuard],
+    title: 'Fiscal Setup' 
+  },
+  {
+    path: 'customers', // URL path
+    loadComponent: () => import('./features/customer/customer-list/customer-list.component')
+                         .then(m => m.CustomerListComponent), canActivate:[authGuard],
+    title: 'Customers' 
+  },
+  {
+    path: 'vendors', // URL path
+    loadComponent: () => import('./features/vendor/vendor-list/vendor-list.component')
+                         .then(m => m.VendorListComponent), canActivate:[authGuard],
+    title: 'Vendors' 
+  },
+  
   {
     path: '',
     pathMatch: 'full',

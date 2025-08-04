@@ -1,6 +1,6 @@
 import { ApplicationConfig, isDevMode , importProvidersFrom ,APP_INITIALIZER  } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideClientHydration } from '@angular/platform-browser';
+//import { provideClientHydration } from '@angular/platform-browser';
 //import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -26,7 +26,7 @@ function initializeAuthFactory(authService: AuthService): () => Observable<boole
 export const appConfig: ApplicationConfig = {
   providers: [
               provideRouter(routes), 
-              provideClientHydration(),
+             // provideClientHydration(),
               provideAnimationsAsync(),
               // --- Provide HttpClient WITH the interceptor ---
               provideHttpClient(withInterceptors([authInterceptor])), // add interceptor

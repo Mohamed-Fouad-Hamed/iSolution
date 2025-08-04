@@ -1,6 +1,8 @@
 <!-- src/app/app.component.html -->
 <div class="container">
-    <app-header class="header" (sidenavToggle)="toggleSidenav()"></app-header>
+  
+  <app-header class="header" (sidenavToggle)="toggleSidenav()"></app-header>
+
     <mat-sidenav-container class="sidenav-container" *ngIf="languageService.isDirectionReady()" >
 
       <!-- === SIDENAV (Remains the same) === -->
@@ -28,19 +30,39 @@
           <!-- Company -->
           <a mat-list-item routerLink="/companies" routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
             <mat-icon matListItemIcon>company</mat-icon>
-            <span matListItemTitle>{{ 'company' | translate }}</span>
+            <span matListItemTitle>{{ 'COMPANY.ENTITY' | translate }}</span>
           </a>
 
           <a mat-list-item routerLink="/departments" routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
             <mat-icon matListItemIcon>company</mat-icon>
-            <span matListItemTitle>{{ 'departments' | translate }}</span>
+            <span matListItemTitle>{{ 'DEPARTMENT.TITLE' | translate }}</span>
           </a>
-
 
           <a mat-list-item routerLink="/financial-account"  routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
             <mat-icon matListItemIcon>company</mat-icon>
-            <span matListItemTitle>{{ 'Financial Accounts' | translate }}</span>
+            <span matListItemTitle>{{ 'FIN_ACCOUNT.MANAGER.TITLE' | translate }}</span>
           </a>
+
+          <a mat-list-item routerLink="/cost-centers"  routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
+            <mat-icon matListItemIcon>company</mat-icon>
+            <span matListItemTitle>{{ 'COST_CENTERS.TITLE' | translate }}</span>
+          </a>
+
+          <a mat-list-item routerLink="/fiscal-setup"  routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
+            <mat-icon matListItemIcon>company</mat-icon>
+            <span matListItemTitle>{{ 'FISCAL_CONFIG.TITLE' | translate }}</span>
+          </a>
+
+          <a mat-list-item routerLink="/customers"  routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
+            <mat-icon matListItemIcon>company</mat-icon>
+            <span matListItemTitle>{{ 'CUSTOMER.LIST.TITLE' | translate }}</span>
+          </a>
+
+          <a mat-list-item routerLink="/vendors"  routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
+            <mat-icon matListItemIcon>company</mat-icon>
+            <span matListItemTitle>{{ 'VENDOR.LIST.TITLE' | translate }}</span>
+          </a>
+          
 
           <!-- Add other specific links if needed -->
           <!-- <a mat-list-item routerLink="/some-other-page" routerLinkActive="active-list-item" (click)="handleSidenavLinkClick()">
@@ -54,9 +76,13 @@
 
           <!-- === MAIN CONTENT (Remains the same) === -->
           <mat-sidenav-content class="sidenav-content">
+
             <main class="content-wrapper">
+
               <router-outlet></router-outlet>
+
             </main>
+
           </mat-sidenav-content>
 
         </mat-sidenav-container>
